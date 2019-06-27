@@ -1,5 +1,4 @@
-﻿using CodeHollow.FeedReader;
-using NewsDump.Lib.Model;
+﻿using NewsDump.Lib.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;

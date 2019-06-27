@@ -1,5 +1,6 @@
 ﻿using NewsDump.Lib.Data;
 using NewsDump.Lib.Model;
+using NewsDump.Lib.Operations.Sites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,12 @@ namespace NewsDump.Lib.Operations
         {
             var repo = Repository.Of<News>();
             repo.Add(news);
+        }
+
+        public static void Test()
+        {
+            var irib = new IribDumper();
+            irib.RunAndSave();
         }
     }
 }

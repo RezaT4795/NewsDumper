@@ -1,9 +1,9 @@
-﻿using CodeHollow.FeedReader;
-using NewsDump.Lib.Model;
+﻿using NewsDump.Lib.Model;
 using NewsDump.Lib.Operations.Sites.Interface;
 using NewsDump.Lib.Util;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace NewsDump.Lib.Operations.Sites
@@ -19,11 +19,12 @@ namespace NewsDump.Lib.Operations.Sites
 
         public void RunAndSave()
         {
-            var feed = GetFeed(Constants.IribRss);
+            var xml = Get(Constants.IribRss);
+            var feed = GetFeed(xml);
 
             foreach (var item in feed.Items)
             {
-                var html = GetHtml(item.Link);
+                var html = Get(item.Links.FirstOrDefault().Uri.ToString());
 
                 var news = ExtractNews(html);
 
