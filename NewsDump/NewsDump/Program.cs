@@ -22,6 +22,8 @@ namespace NewsDump
 
             news= TestOperation.GetAllNews();
             news.ForEach(n => Console.WriteLine(n.NewsTitle));
+
+            Console.ReadLine();
         }
     }
 }
