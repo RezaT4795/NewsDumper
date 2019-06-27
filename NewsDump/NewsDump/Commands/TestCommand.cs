@@ -14,7 +14,7 @@ namespace NewsDump.Commands
         public TestCommand()
         {
             IsCommand("Test", "Runs a test command");
-            HasOption("a|additional:", "Adds an additional shit to the added thing", t => Additional = t);
+            HasOption("a|additional=", "Adds an additional shit to the added thing", t => Additional = t);
         }
         public override int Run(string[] remainingArguments)
         {
