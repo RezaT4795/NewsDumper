@@ -13,7 +13,9 @@ namespace NewsDump
             var commands = ConsoleCommandDispatcher.FindCommandsInSameAssemblyAs(typeof(Program));
             var result =  ConsoleCommandDispatcher.DispatchCommand(commands, args, Console.Out);
 
+#if DEBUG
             WitForExit();
+#endif
             return result;
         }
 
