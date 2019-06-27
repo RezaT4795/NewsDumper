@@ -1,4 +1,5 @@
-﻿using NewsDump.Commands;
+﻿using ManyConsole;
+using NewsDump.Commands;
 using NewsDump.Lib.Model;
 using NewsDump.Lib.Operations;
 using System;
@@ -7,9 +8,19 @@ namespace NewsDump
 {
     class Program
     {
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
-           TestCommand.Run();
+            var commands = ConsoleCommandDispatcher.FindCommandsInSameAssemblyAs(typeof(Program));
+            var result =  ConsoleCommandDispatcher.DispatchCommand(commands, args, Console.Out);
+
+            WitForExit();
+            return result;
+        }
+
+        private static void WitForExit()
+        {
+            Console.WriteLine("Press enter to exit");
+            Console.ReadLine();
         }
     }
 }
