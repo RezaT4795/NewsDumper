@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
+using HtmlAgilityPack;
 
 namespace NewsDump.Lib.Operations.Sites
 {
@@ -12,7 +14,16 @@ namespace NewsDump.Lib.Operations.Sites
     {
         public News ExtractNews(string html)
         {
-            throw new NotImplementedException();
+            var MyString = html;
+
+            var htmlDoc = new HtmlDocument();
+            htmlDoc.LoadHtml(html);
+
+            //var A = htmlDoc.DocumentNode.SelectSingleNode("//title").InnerText;
+            var news = new News();
+            news.NewsTitle = htmlDoc.DocumentNode.SelectSingleNode("//title").InnerText;
+            
+            return news;
         }
 
         
