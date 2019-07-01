@@ -35,10 +35,19 @@ namespace NewsDump.Lib.Operations.Sites
 
             foreach (var item in feed.Items)
             {
-                var html = Get(item.Links.FirstOrDefault().Uri.ToString());
+                var uri = item.Links?.FirstOrDefault().Uri;
+                var html = Get(uri.ToString());
 
                 var news = ExtractNews(html);
 
+                news.NewsTitle = item.Title.Text;
+                news.Link = uri.ToString();
+                news.PublishDate = item.PublishDate.DateTime;
+                news.Contributors = string.Join(", ", item.Authors.Select(x => x.Name));
+                news.SiteName = uri.Host.ToString();
+
+
+                
                 //Save to DB with the code I shown you before.
             }
 

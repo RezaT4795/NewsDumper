@@ -14,5 +14,6 @@ namespace NewsDump.Lib.Model
         public DateTime PublishDate { get; set; }
         public string NewsSource { get; set; }
         public string SiteName { get; set; }
+        public string Contributors { get; set; }
     }
 }
