@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using HtmlAgilityPack;
+using System.ServiceModel.Syndication;
 
 namespace NewsDump.Lib.Operations.Sites
 {
@@ -14,14 +15,12 @@ namespace NewsDump.Lib.Operations.Sites
     {
         public News ExtractNews(string html)
         {
-            var MyString = html;
-
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(html);
 
-            //var A = htmlDoc.DocumentNode.SelectSingleNode("//title").InnerText;
             var news = new News();
-            news.NewsTitle = htmlDoc.DocumentNode.SelectSingleNode("//title").InnerText;
+            // Do assign news.Body and news.Source ONLY. The rest are assigned below.
+
             
             return news;
         }
@@ -39,18 +38,28 @@ namespace NewsDump.Lib.Operations.Sites
                 var html = Get(uri.ToString());
 
                 var news = ExtractNews(html);
-
-                news.NewsTitle = item.Title.Text;
-                news.Link = uri.ToString();
-                news.PublishDate = item.PublishDate.DateTime;
-                news.Contributors = string.Join(", ", item.Authors.Select(x => x.Name));
-                news.SiteName = uri.Host.ToString();
-
-
+                //Set data from feed
+                news = SetNewsFromFeed(news, item);
                 
-                //Save to DB with the code I shown you before.
+
+                //Save in database
+                news.SaveNewsInDatabase();
+               
             }
 
+        }
+
+        public News SetNewsFromFeed(News news, SyndicationItem feed)
+        {
+            var uri = feed.Links?.FirstOrDefault().Uri;
+
+            news.NewsTitle = feed.Title.Text;
+            news.Link = uri.ToString();
+            news.PublishDate = feed.PublishDate.DateTime;
+            news.Contributors = string.Join(", ", feed.Authors.Select(x => x.Name));
+            news.SiteName = uri.Host.ToString();
+            news.NewsIntro = feed.Summary.Text;
+            return news;
         }
     }
 }

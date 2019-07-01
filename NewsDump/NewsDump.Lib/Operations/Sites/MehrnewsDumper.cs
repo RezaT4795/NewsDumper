@@ -4,6 +4,7 @@ using NewsDump.Lib.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel.Syndication;
 using System.Text;
 
 namespace NewsDump.Lib.Operations.Sites
@@ -30,6 +31,11 @@ namespace NewsDump.Lib.Operations.Sites
                 
             }
 
+        }
+
+        public News SetNewsFromFeed(News news, SyndicationItem feed)
+        {
+            throw new NotImplementedException();
         }
     }
 }

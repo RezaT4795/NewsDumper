@@ -1,6 +1,7 @@
 ﻿using NewsDump.Lib.Model;
 using System;
 using System.Collections.Generic;
+using System.ServiceModel.Syndication;
 using System.Text;
 
 namespace NewsDump.Lib.Operations.Sites.Interface
@@ -9,5 +10,6 @@ namespace NewsDump.Lib.Operations.Sites.Interface
     {
         void RunAndSave();
         News ExtractNews(string html);
+        News SetNewsFromFeed(News news, SyndicationItem feed);
     }
 }
