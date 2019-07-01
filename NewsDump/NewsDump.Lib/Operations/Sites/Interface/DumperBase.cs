@@ -13,7 +13,7 @@ namespace NewsDump.Lib.Operations.Sites.Interface
 
         internal string Get(string uri)
         {
-            string html = string.Empty;
+            string responseString = string.Empty;
             string url = uri;
 
             var request = (HttpWebRequest)WebRequest.Create(url);
@@ -23,10 +23,10 @@ namespace NewsDump.Lib.Operations.Sites.Interface
             using (var stream = response.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                html = reader.ReadToEnd();
+                responseString = reader.ReadToEnd();
             }
 
-            return html;
+            return responseString;
         }
     }
 }

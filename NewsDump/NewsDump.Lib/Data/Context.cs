@@ -14,7 +14,7 @@ namespace NewsDump.Lib.Data
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=news.db");
+            optionsBuilder.UseSqlite("Data Source=dumperdb.sqlite");
         }
 
         public DbSet<News> News { get; set; }
