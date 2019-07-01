@@ -1,5 +1,7 @@
 ﻿using ManyConsole;
+using Microsoft.EntityFrameworkCore;
 using NewsDump.Commands;
+using NewsDump.Lib.Data;
 using NewsDump.Lib.Model;
 using NewsDump.Lib.Operations;
 using System;
@@ -10,6 +12,11 @@ namespace NewsDump
     {
         static int Main(string[] args)
         {
+            using (var context = new Context())
+            {
+                context.Database.Migrate();
+            }
+
             var commands = ConsoleCommandDispatcher.FindCommandsInSameAssemblyAs(typeof(Program));
             var result =  ConsoleCommandDispatcher.DispatchCommand(commands, args, Console.Out);
 

@@ -19,7 +19,7 @@ namespace NewsDump.Commands
         public override int Run(string[] remainingArguments)
         {
 
-            TestOperation.Test();
+            //TestOperation.Test();
 
             var news = TestOperation.GetAllNews();
             foreach (var item in news)
