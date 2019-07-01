@@ -15,5 +15,7 @@ namespace NewsDump.Lib.Model
         public string NewsSource { get; set; }
         public string SiteName { get; set; }
         public string Contributors { get; set; }
+
+        public override string ToString() => this.NewsTitle;
     }
 }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Xml;
 using HtmlAgilityPack;
 using System.ServiceModel.Syndication;
+using Olive;
 
 namespace NewsDump.Lib.Operations.Sites
 {
@@ -34,6 +35,13 @@ namespace NewsDump.Lib.Operations.Sites
 
             foreach (var item in feed.Items)
             {
+                //Validate Uri
+                if (item.Links.None())
+                {
+                    Console.WriteLine("Something is wrong with this feed");
+                    continue;
+                }
+
                 var uri = item.Links?.FirstOrDefault().Uri;
                 var html = Get(uri.ToString());
 
@@ -44,7 +52,7 @@ namespace NewsDump.Lib.Operations.Sites
 
                 //Save in database
                 news.SaveNewsInDatabase();
-               
+
             }
 
         }
@@ -52,13 +60,26 @@ namespace NewsDump.Lib.Operations.Sites
         public News SetNewsFromFeed(News news, SyndicationItem feed)
         {
             var uri = feed.Links?.FirstOrDefault().Uri;
-
-            news.NewsTitle = feed.Title.Text;
+            if (feed.Title!=null)
+            {
+                news.NewsTitle = feed.Title.Text;
+            }
+            
             news.Link = uri.ToString();
-            news.PublishDate = feed.PublishDate.DateTime;
-            news.Contributors = string.Join(", ", feed.Authors.Select(x => x.Name));
-            news.SiteName = uri.Host.ToString();
-            news.NewsIntro = feed.Summary.Text;
+
+            if (feed.PublishDate!=null)
+            {
+                news.PublishDate = feed.PublishDate.DateTime;
+            }
+            
+            news.Contributors = string.Join(", ", feed.Authors?.Select(x => x.Name));
+            news.SiteName = uri.Host.ToString() ?? "";
+
+            if (feed.Summary!=null)
+            {
+                news.NewsIntro = feed.Summary.Text ?? "";
+            }
+           
             return news;
         }
     }
