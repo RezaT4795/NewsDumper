@@ -39,6 +39,7 @@ namespace NewsDump.Lib.Operations.Sites
 
             foreach (var item in feed.Items)
             {
+
                 //Validate Uri
                 if (item.Links.None())
                 {
@@ -46,7 +47,14 @@ namespace NewsDump.Lib.Operations.Sites
                     continue;
                 }
 
+                //Run operation for new items only
+                if (item.NewsExists())
+                {
+                    continue;
+                }
+
                 var html = Get(item.GetUri().ToString());
+                
 
                 var news = ExtractNews(html);
 
