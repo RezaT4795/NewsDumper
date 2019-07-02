@@ -38,5 +38,14 @@ namespace NewsDump.Lib.Util
             return from Match match in Regex.Matches(str, "\"([^\"]*)\"")
                          select match.ToString().ToLower().Remove("\"");
         }
+
+        public static string Take (this string str , int start,int length)
+        {
+            if (length+start>str.Length)
+            {
+                return str;
+            }
+            return str.Substring(start, length);
+        }
     }
 }

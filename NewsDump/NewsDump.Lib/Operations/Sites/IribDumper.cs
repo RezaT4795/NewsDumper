@@ -30,14 +30,14 @@ namespace NewsDump.Lib.Operations.Sites
 
             var body = printDoc.DocumentNode.GetElementsWithClass("div", "body")?.FirstOrDefault();
             var paragraphs = body.ChildNodes.Where(x => x.Name == "p");
-            var text = string.Join(Environment.NewLine,paragraphs.Select(x => x.InnerText.HtmlDecode()));
+            var text = string.Join(Environment.NewLine,paragraphs.Select(x => x.InnerText.HtmlDecode().Trim()));
 
             if (text.IsEmpty())
             {
                 //Validate for trivia character
                 if (!body.InnerText.HtmlDecode().StartsWith("{$"))
                 {
-                    text = body.InnerText.HtmlDecode();
+                    text = body.InnerText.HtmlDecode().Trim();
                 }
             }
 
@@ -77,6 +77,11 @@ namespace NewsDump.Lib.Operations.Sites
 
                 //Set data from feed
                 news = SetNewsFromFeed(news, item);
+
+                if (news.NewsIntro.IsEmpty() && news.NewsBody.HasValue())
+                {
+                    news.NewsIntro = news.NewsBody.Take(0,100)+"...";
+                }
                 
 
                 //Save in database
@@ -91,7 +96,7 @@ namespace NewsDump.Lib.Operations.Sites
             var uri = feed.GetUri();
             if (feed.Title!=null)
             {
-                news.NewsTitle = feed.Title.Text;
+                news.NewsTitle = feed.Title.Text.Trim();
             }
             
             news.Link = uri.ToString();
@@ -101,12 +106,12 @@ namespace NewsDump.Lib.Operations.Sites
                 news.PublishDate = feed.PublishDate.DateTime;
             }
             
-            news.Contributors = string.Join(", ", feed.Authors?.Select(x => x.Name));
-            news.SiteName = uri.Host.ToString() ?? "";
+            news.Contributors = string.Join(", ", feed.Authors?.Select(x => x.Name)).Trim();
+            news.SiteName = uri.Host;
 
             if (feed.Summary!=null)
             {
-                news.NewsIntro = feed.Summary.Text ?? "";
+                news.NewsIntro = feed.Summary.Text.Trim();
             }
            
             return news;
