@@ -46,8 +46,7 @@ namespace NewsDump.Lib.Operations.Sites
                     continue;
                 }
 
-                var uri = item.Links?.FirstOrDefault().Uri;
-                var html = Get(uri.ToString());
+                var html = Get(item.GetUri().ToString());
 
                 var news = ExtractNews(html);
 
@@ -70,7 +69,7 @@ namespace NewsDump.Lib.Operations.Sites
 
         public News SetNewsFromFeed(News news, SyndicationItem feed)
         {
-            var uri = feed.Links?.FirstOrDefault().Uri;
+            var uri = feed.GetUri();
             if (feed.Title!=null)
             {
                 news.NewsTitle = feed.Title.Text;

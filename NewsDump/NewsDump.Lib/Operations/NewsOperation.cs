@@ -2,6 +2,7 @@
 using NewsDump.Lib.Model;
 using NewsDump.Lib.Operations.Sites;
 using NewsDump.Lib.Operations.Sites.Interface;
+using NewsDump.Lib.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace NewsDump.Lib.Operations
 
         public static void SaveNewsInDatabase(this News news) => _repo.Add(news);
         public static bool NewsExists(this SyndicationItem feed)=> _repo.Exists(
-            x => x.Link.ToLower() == feed.Links.FirstOrDefault().Uri.ToString().ToLower()
+            x => x.Link.ToLower() == feed.GetUri().ToString().ToLower()
             );
     }
 }
