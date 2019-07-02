@@ -8,6 +8,7 @@ using System.Text;
 using System.Xml;
 using HtmlAgilityPack;
 using System.ServiceModel.Syndication;
+using NewsDump.Lib.Util;
 using Olive;
 
 namespace NewsDump.Lib.Operations.Sites
@@ -19,11 +20,14 @@ namespace NewsDump.Lib.Operations.Sites
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(html);
 
-            var news = new News();
-            // Do assign news.Body and news.Source ONLY. The rest are assigned below.
+            // Do assign news.Body and news.Source (If available) ONLY. The rest are assigned below.
+            var body = htmlDoc.DocumentNode.GetElementsWithClass("div", "body", "body_media_content_show").FirstOrDefault() ;
+            var paragraphs = body.ChildNodes.Where(x => x.Name == "p");
+            var newsText = string.Join(Environment.NewLine,paragraphs.Select(x => x.InnerText)).HtmlDecode();
+
 
             
-            return news;
+           return new News { NewsBody=newsText};
         }
 
         
@@ -46,6 +50,13 @@ namespace NewsDump.Lib.Operations.Sites
                 var html = Get(uri.ToString());
 
                 var news = ExtractNews(html);
+
+                //Validate body
+                if (news.NewsBody.IsEmpty())
+                {
+                    Console.WriteLine("News has empty body");
+                    continue;
+                }
                 //Set data from feed
                 news = SetNewsFromFeed(news, item);
                 
