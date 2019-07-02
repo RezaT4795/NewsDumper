@@ -34,7 +34,10 @@ namespace NewsDump.Lib.Operations.Sites
 
             if (text.IsEmpty())
             {
-                Console.WriteLine("Item has empty body: "+printUri);
+                if (!body.InnerText.StartsWith("{$"))
+                {
+                    text = body.InnerText;
+                }
             }
 
             return new News { NewsBody=text };
@@ -68,11 +71,9 @@ namespace NewsDump.Lib.Operations.Sites
 
                 var news = ExtractNews(html,item.GetUri());
 
-                //Validate body
-                if (news.NewsBody.IsEmpty())
-                {
-                    continue;
-                }
+                
+                
+
                 //Set data from feed
                 news = SetNewsFromFeed(news, item);
                 
