@@ -4,6 +4,7 @@ using NewsDump.Commands;
 using NewsDump.Lib.Data;
 using NewsDump.Lib.Model;
 using NewsDump.Lib.Operations;
+using NewsDump.Lib.Util;
 using System;
 
 namespace NewsDump
@@ -17,6 +18,9 @@ namespace NewsDump
                 context.Database.Migrate();
             }
 
+            //Register for event
+            EventBus.OnMessageFired += EventBus_OnMessageFired;
+
             var commands = ConsoleCommandDispatcher.FindCommandsInSameAssemblyAs(typeof(Program));
             var result =  ConsoleCommandDispatcher.DispatchCommand(commands, args, Console.Out);
 
@@ -25,6 +29,8 @@ namespace NewsDump
 #endif
             return result;
         }
+
+        private static void EventBus_OnMessageFired(MessageArgs message) => Console.WriteLine(message.ToString());
 
         private static void WitForExit()
         {

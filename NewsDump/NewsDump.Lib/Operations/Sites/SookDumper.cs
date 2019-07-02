@@ -15,7 +15,6 @@ namespace NewsDump.Lib.Operations.Sites
 {
     class SookDumper : DumperBase, IDumper
     {
-        public SookDumper() => EventBus.Notify("Sook Dumper initializing", "Info");
         public News ExtractNews(string html, Uri baseUri)
         {
             var htmlDoc = new HtmlDocument();
@@ -50,6 +49,8 @@ namespace NewsDump.Lib.Operations.Sites
 
         public void RunAndSave()
         {
+            EventBus.Notify("Sook Dumper Running", "Info");
+
             var xml = Get(Constants.SookRss);
             var feed = GetFeed(xml);
 

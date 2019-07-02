@@ -14,7 +14,6 @@ namespace NewsDump.Lib.Operations.Sites
 {
     class IribDumper : DumperBase, IDumper
     {
-        public IribDumper() => EventBus.Notify("IRIB Dumper initializing", "Info");
 
         public News ExtractNews(string html,Uri baseUri)
         {
@@ -50,6 +49,8 @@ namespace NewsDump.Lib.Operations.Sites
 
         public void RunAndSave()
         {
+            EventBus.Notify("IRIB Dumper initializing", "Info");
+
             var xml = Get(Constants.IribRss);
             var feed = GetFeed(xml);
 
