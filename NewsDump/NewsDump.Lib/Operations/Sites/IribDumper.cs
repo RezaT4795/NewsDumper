@@ -34,9 +34,10 @@ namespace NewsDump.Lib.Operations.Sites
 
             if (text.IsEmpty())
             {
-                if (!body.InnerText.StartsWith("{$"))
+                //Validate for trivia character
+                if (!body.InnerText.HtmlDecode().StartsWith("{$"))
                 {
-                    text = body.InnerText;
+                    text = body.InnerText.HtmlDecode();
                 }
             }
 
