@@ -15,6 +15,7 @@ namespace NewsDump.Lib.Operations.Sites
 {
     class SookDumper : DumperBase, IDumper
     {
+        public SookDumper() => EventBus.Notify("Sook Dumper initializing", "Info");
         public News ExtractNews(string html, Uri baseUri)
         {
             var htmlDoc = new HtmlDocument();
@@ -58,7 +59,7 @@ namespace NewsDump.Lib.Operations.Sites
                 //Validate Uri
                 if (item.Links.None())
                 {
-                    Console.WriteLine("Something is wrong with this feed");
+                    EventBus.Notify("Something is wrong with this feed","Alert");
                     continue;
                 }
 
@@ -90,6 +91,7 @@ namespace NewsDump.Lib.Operations.Sites
 
             }
 
+            EventBus.Notify("Sook Dumper exiting", "Info");
         }
 
         public News SetNewsFromFeed(News news, SyndicationItem feed)

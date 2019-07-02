@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using Olive;
 
 namespace NewsDump.Lib.Operations
 {
@@ -12,18 +14,17 @@ namespace NewsDump.Lib.Operations
         public static void Run()
         {
             var services = RegisterServices();
-            services.ForAll(s =>
-            {
-                s.RunAndSave();
-            });
-        }
 
-        private static ParallelQuery<IDumper> RegisterServices()
+            services.ForEach(x => x.RunAndSave());
+
+        }
+        
+        private static List<IDumper> RegisterServices()
         {
             var serviceList = new List<IDumper>();
             serviceList.Add(new IribDumper());
             serviceList.Add(new SookDumper());
-            return serviceList.AsParallel();
+            return serviceList;
         }
     }
 }

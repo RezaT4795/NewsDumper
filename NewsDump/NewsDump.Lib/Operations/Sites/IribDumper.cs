@@ -14,6 +14,8 @@ namespace NewsDump.Lib.Operations.Sites
 {
     class IribDumper : DumperBase, IDumper
     {
+        public IribDumper() => EventBus.Notify("IRIB Dumper initializing", "Info");
+
         public News ExtractNews(string html,Uri baseUri)
         {
             var htmlDoc = new HtmlDocument();
@@ -57,7 +59,7 @@ namespace NewsDump.Lib.Operations.Sites
                 //Validate Uri
                 if (item.Links.None())
                 {
-                    Console.WriteLine("Something is wrong with this feed");
+                    EventBus.Notify("Something is wrong with this feed","Alert");
                     continue;
                 }
 
@@ -88,6 +90,8 @@ namespace NewsDump.Lib.Operations.Sites
                 news.SaveNewsInDatabase();
 
             }
+
+            EventBus.Notify("IRIB Dumper Exiting", "Info");
 
         }
 
