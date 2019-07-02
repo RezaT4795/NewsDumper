@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.ServiceModel.Syndication;
+using Olive;
 
 namespace NewsDump.Lib.Util
 {
@@ -31,5 +32,11 @@ namespace NewsDump.Lib.Util
         }
 
         public static Uri GetUri(this SyndicationItem item) => item.Links?.FirstOrDefault().Uri;
+
+        public static IEnumerable<string>GetItemsWithinQuotes(this string str)
+        {
+            return from Match match in Regex.Matches(str, "\"([^\"]*)\"")
+                         select match.ToString().ToLower().Remove("\"");
+        }
     }
 }

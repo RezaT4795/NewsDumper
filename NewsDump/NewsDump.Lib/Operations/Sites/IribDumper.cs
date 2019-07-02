@@ -14,19 +14,30 @@ namespace NewsDump.Lib.Operations.Sites
 {
     class IribDumper : DumperBase, IDumper
     {
-        public News ExtractNews(string html)
+        public News ExtractNews(string html,Uri baseUri)
         {
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(html);
 
-            // Do assign news.Body and news.Source (If available) ONLY. The rest are assigned below.
-            var body = htmlDoc.DocumentNode.GetElementsWithClass("div", "body", "body_media_content_show").FirstOrDefault() ;
+            var printButtton= htmlDoc.DocumentNode.GetElementsWithClass("div", "news_print_botton")?.FirstOrDefault();
+            var printValue = printButtton.GetAttributeValue("onclick",null).GetItemsWithinQuotes()?.FirstOrDefault(x=>x.Contains("/fa/print"));
+
+            var printUri = $"http://{baseUri.Host}{printValue}";
+            var printHtml = Get(printUri);
+
+            var printDoc = new HtmlDocument();
+            printDoc.LoadHtml(printHtml);
+
+            var body = printDoc.DocumentNode.GetElementsWithClass("div", "body")?.FirstOrDefault();
             var paragraphs = body.ChildNodes.Where(x => x.Name == "p");
-            var newsText = string.Join(Environment.NewLine,paragraphs.Select(x => x.InnerText)).HtmlDecode();
+            var text = string.Join(Environment.NewLine,paragraphs.Select(x => x.InnerText.HtmlDecode()));
 
+            if (text.IsEmpty())
+            {
+                Console.WriteLine("Item has empty body: "+printUri);
+            }
 
-            
-           return new News { NewsBody=newsText};
+            return new News { NewsBody=text };
         }
 
         
@@ -55,12 +66,11 @@ namespace NewsDump.Lib.Operations.Sites
                 var html = Get(item.GetUri().ToString());
                 
 
-                var news = ExtractNews(html);
+                var news = ExtractNews(html,item.GetUri());
 
                 //Validate body
                 if (news.NewsBody.IsEmpty())
                 {
-                    Console.WriteLine("News has empty body");
                     continue;
                 }
                 //Set data from feed

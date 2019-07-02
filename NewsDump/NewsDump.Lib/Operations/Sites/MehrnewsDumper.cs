@@ -11,7 +11,7 @@ namespace NewsDump.Lib.Operations.Sites
 {
     class MehrnewsDumper : DumperBase, IDumper
     {
-        public News ExtractNews(string html)
+        public News ExtractNews(string html, Uri baseUri)
         {
             throw new NotImplementedException();
         }
@@ -20,17 +20,7 @@ namespace NewsDump.Lib.Operations.Sites
 
         public void RunAndSave()
         {
-            var xml = Get(Constants.MehrnewsRss);
-            var feed = GetFeed(xml);
-
-            foreach (var item in feed.Items)
-            {
-                var html = Get(item.Links.FirstOrDefault().Uri.ToString());
-
-                var news = ExtractNews(html);
-                
-            }
-
+            
         }
 
         public News SetNewsFromFeed(News news, SyndicationItem feed)
