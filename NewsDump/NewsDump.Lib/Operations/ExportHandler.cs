@@ -25,8 +25,7 @@ namespace NewsDump.Lib.Operations
         }
         static void WriteToExcel(IEnumerable<News> customerObjects, string path)
         {
-            var expath = Path.Combine(path, $"{DateTime.UtcNow.Ticks}.xlsx");
-            var correctPath = expath.Remove(0,1);
+            var expath = Path.Combine(path.AsDirectory().FullName, $"{DateTime.UtcNow.Ticks}.xlsx");
 
             var pck = new ExcelPackage();
             var wsEnum = pck.Workbook.Worksheets.Add("News sheet");
@@ -34,8 +33,8 @@ namespace NewsDump.Lib.Operations
             wsEnum.Cells["A1"].LoadFromCollection(customerObjects, true, TableStyles.Light1);
             wsEnum.Cells[2, 5, customerObjects.Count() + 1, 5].Style.Numberformat.Format = "dd-MM-yy";
 
-            pck.SaveAs(correctPath.AsFile());
-            EventBus.Notify($"{customerObjects.Count()} rows saved as {correctPath}", "info");
+            pck.SaveAs(expath.AsFile());
+            EventBus.Notify($"{customerObjects.Count()} rows saved as {expath}", "info");
         }
     }
 }
