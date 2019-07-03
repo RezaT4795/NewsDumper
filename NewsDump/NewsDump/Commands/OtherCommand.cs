@@ -9,7 +9,7 @@ namespace NewsDump.Commands
     {
         public OtherCommand()
         {
-            IsCommand("Nothing", "Does absolutely nothing.");
+            IsCommand("Export", "Exports to excel file");
         }
         public override int Run(string[] remainingArguments)
         {
