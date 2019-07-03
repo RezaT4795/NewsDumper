@@ -96,10 +96,10 @@ namespace NewsDump.Lib.Operations.Sites
                     EventBus.Notify(ex.Message, "Error");
                 }
 
-                EventBus.Notify("Mehrnews dumper exiting", "Info");
+
 
             }
-
+            EventBus.Notify("Mehrnews dumper exiting", "Info");
 
         }
 
