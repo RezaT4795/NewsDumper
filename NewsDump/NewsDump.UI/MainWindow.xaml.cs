@@ -1,4 +1,6 @@
-﻿using NewsDump.Lib.Operations;
+﻿using Microsoft.EntityFrameworkCore;
+using NewsDump.Lib.Data;
+using NewsDump.Lib.Operations;
 using NewsDump.Lib.Util;
 using System;
 using System.Collections.Generic;
@@ -16,6 +18,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using System.Windows.Threading;
+
 namespace NewsDump.UI
 {
     /// <summary>
@@ -26,14 +30,24 @@ namespace NewsDump.UI
         public MainWindow()
         {
             InitializeComponent();
-            //EventBus.OnMessageFired += EventBus_OnMessageFired;
+
+            using (var context = new Context())
+            {
+                context.Database.Migrate();
+            }
+
+            EventBus.OnMessageFired += EventBus_OnMessageFired;
         }
 
         private void EventBus_OnMessageFired(MessageArgs message)
         {
-            console.Text += Environment.NewLine;
-            console.Text += message;
-            scroll.ScrollToEnd();
+            Dispatcher.Invoke(() =>
+            {
+                console.Text += Environment.NewLine;
+                console.Text += message;
+                scroll.ScrollToEnd();
+            });
+
         }
 
         private void Clrconsole_Click(object sender, RoutedEventArgs e)
@@ -43,17 +57,22 @@ namespace NewsDump.UI
 
         private async void Rundumper_Click(object sender, RoutedEventArgs e)
         {
-            await this.Dispatcher.InvokeAsync(() =>
-            {
-                Thread.Sleep(3000);
+            commandbar.IsEnabled = false;
+            prog.IsIndeterminate = true;
+            await NewsHandler.RunAsync();
+            commandbar.IsEnabled = true;
+            prog.IsIndeterminate = false;
 
-            });
+
         }
 
-        private void Exportall_Click(object sender, RoutedEventArgs e)
+
+
+        private async void Exportall_Click(object sender, RoutedEventArgs e)
         {
-            Thread.Sleep(3000);
+
         }
+
 
         private void Exportthis_Click(object sender, RoutedEventArgs e)
         {

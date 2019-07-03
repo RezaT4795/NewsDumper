@@ -8,71 +8,75 @@
         xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
         fw:AcrylicWindow.ExtendViewIntoTitleBar="True"
         Title="News Dump" Height="500" Width="550">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="160"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="1" Background="#30000000">
-            <Grid Margin="10"  VerticalAlignment="Center" >
-                <TextBlock HorizontalAlignment="Left">
+    
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="1" Background="#30000000">
+            <ProgressBar x:Name="prog" Background="Transparent" HorizontalAlignment="Stretch" Height="4" />
+            <Grid Margin="10,6"  VerticalAlignment="Center" >
+                    <TextBlock HorizontalAlignment="Left">
                         <Run Text="Console" FontSize="24"/>
-                </TextBlock>
-                
-            </Grid>
-            <ScrollViewer x:Name="scroll" VerticalScrollBarVisibility="Auto">
-                <TextBlock FontSize="13" x:Name="console" TextWrapping="Wrap" HorizontalAlignment="Left" />
-            </ScrollViewer>
-            
+                    </TextBlock>
 
-        </StackPanel>
+                </Grid>
+                <ScrollViewer Margin="0,10,0,0" x:Name="scroll" VerticalScrollBarVisibility="Auto">
+                    <TextBlock Margin="10,0,0,0" FontSize="13" x:Name="console" TextWrapping="Wrap" HorizontalAlignment="Left" />
+                </ScrollViewer>
 
-        <fw:DropShadowPanel Grid.Column="0" ShadowMode="Outer" Background="#66FFFFFF">
-            <Grid fw:PointerTracker.Enabled="True" Background="#01FFFFFF">
-                <StackPanel>
-                    <!--<Grid Grid.Column="1" >-->
-                    <StackPanel Margin="10" VerticalAlignment="Center" >
-                        <TextBlock>
+
+            </StackPanel>
+
+            <fw:DropShadowPanel Grid.Column="0" ShadowMode="Outer" Background="#66FFFFFF">
+                <Grid fw:PointerTracker.Enabled="True" Background="#01FFFFFF">
+                    <StackPanel x:Name="commandbar">
+                        <!--<Grid Grid.Column="1" >-->
+                        <StackPanel Margin="10" VerticalAlignment="Center" >
+                            <TextBlock>
                         <Run Text="Commands" FontSize="24"/>
-                        </TextBlock>
-                    </StackPanel>
+                            </TextBlock>
+                        </StackPanel>
 
-                    <StackPanel 
+                        <StackPanel 
                         HorizontalAlignment="Left" Margin="25" VerticalAlignment="Bottom">
 
-                        
-                        <Button x:Name="clrconsole" HorizontalAlignment="Right" Content="Clear console" Margin="0,10" Width="100" Height="50" 
+
+                            <Button x:Name="clrconsole" HorizontalAlignment="Right" Content="Clear console" Margin="0,10" Width="100" Height="50" 
                             Style="{StaticResource ButtonRevealStyle}" Background="Transparent"
                                 Click="Clrconsole_Click"
                                 />
-                        
-                        <Button x:Name="rundumper" HorizontalAlignment="Right" Content="Run dumper" Margin="0,10" Width="100" Height="50" 
+
+                            <Button x:Name="rundumper" HorizontalAlignment="Right" Content="Run dumper" Margin="0,10" Width="100" Height="50" 
                             Style="{StaticResource ButtonRevealStyle}" Background="Transparent"
                                 Click="Rundumper_Click"/>
 
 
-                        <Button x:Name="exportall" HorizontalAlignment="Right" Content="Export all" Margin="0,10" Width="100" Height="50" 
+                            <Button x:Name="exportall" HorizontalAlignment="Right" Content="Export all" Margin="0,10" Width="100" Height="50" 
                             Style="{StaticResource ButtonRevealStyle}" Background="Transparent"
                                 Click="Exportall_Click"/>
 
-                        <Button x:Name="exportthis" HorizontalAlignment="Right" Content="Export this" Margin="0,10" Width="100" Height="50" 
+                            <Button x:Name="exportthis" HorizontalAlignment="Right" Content="Export this" Margin="0,10" Width="100" Height="50" 
                             Style="{StaticResource ButtonRevealStyle}" Background="Transparent" Click="Exportthis_Click"/>
-                        <StackPanel>
-                            <Grid >
-                                <TextBlock HorizontalAlignment="Left" Text="Skip" />
-                                <TextBox x:Name="skip" HorizontalAlignment="Right" Width="40" Text="0" />
-                            </Grid>
+                            <StackPanel>
+                                <Grid >
+                                    <TextBlock HorizontalAlignment="Left" Text="Skip" />
+                                    <TextBox x:Name="skip" HorizontalAlignment="Right" Width="40" Text="0" />
+                                </Grid>
 
-                            <Grid >
-                                <TextBlock HorizontalAlignment="Left" Text="Take" />
-                                <TextBox x:Name="take" HorizontalAlignment="Right" Width="40" Text="100" />
-                            </Grid>
+                                <Grid >
+                                    <TextBlock HorizontalAlignment="Left" Text="Take" />
+                                    <TextBox x:Name="take" HorizontalAlignment="Right" Width="40" Text="100" />
+                                </Grid>
+                            </StackPanel>
                         </StackPanel>
                     </StackPanel>
-                </StackPanel>
-                
 
-            </Grid>
-        </fw:DropShadowPanel>
+
+                </Grid>
+            </fw:DropShadowPanel>
+        
     </Grid>
+    
 </fw:AcrylicWindow>

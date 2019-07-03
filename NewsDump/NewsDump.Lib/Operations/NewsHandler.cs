@@ -1,6 +1,7 @@
 ﻿using NewsDump.Lib.Operations.Sites;
 using NewsDump.Lib.Operations.Sites.Interface;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace NewsDump.Lib.Operations
 {
@@ -13,7 +14,7 @@ namespace NewsDump.Lib.Operations
             services.ForEach(x => x.RunAndSave());
 
         }
-
+        public static async Task RunAsync() => await Task.Run(Run);
         private static List<IDumper> RegisterServices()
         {
             var serviceList = new List<IDumper>();
