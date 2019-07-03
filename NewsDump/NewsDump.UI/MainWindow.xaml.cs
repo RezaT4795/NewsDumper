@@ -2,8 +2,10 @@
 using NewsDump.Lib.Data;
 using NewsDump.Lib.Operations;
 using NewsDump.Lib.Util;
+using Olive;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -12,6 +14,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -31,7 +34,7 @@ namespace NewsDump.UI
         {
             InitializeComponent();
 
-            using (var context = new Context())
+            using (var context = new Lib.Data.Context())
             {
                 context.Database.Migrate();
             }
@@ -45,7 +48,7 @@ namespace NewsDump.UI
             {
                 console.Text += Environment.NewLine;
                 console.Text += message;
-                scroll.ScrollToEnd();
+                console.ScrollToEnd();
             });
 
         }
@@ -70,13 +73,29 @@ namespace NewsDump.UI
 
         private async void Exportall_Click(object sender, RoutedEventArgs e)
         {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                var result = fbd.ShowDialog();
 
+                if (fbd.SelectedPath.HasValue())
+                {
+                    ExportHandler.Export(fbd.SelectedPath);
+                }
+            }
         }
 
 
         private void Exportthis_Click(object sender, RoutedEventArgs e)
         {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                var result = fbd.ShowDialog();
 
+                if (fbd.SelectedPath.HasValue())
+                {
+                    ExportHandler.Export(fbd.SelectedPath, skip.Text.To<int>(), take.Text.To<int>());
+                }
+            }
         }
     }
 }

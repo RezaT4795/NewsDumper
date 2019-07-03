@@ -14,20 +14,23 @@
                 <ColumnDefinition Width="160"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="1" Background="#30000000">
-            <ProgressBar x:Name="prog" Background="Transparent" HorizontalAlignment="Stretch" Height="4" />
-            <Grid Margin="10,6"  VerticalAlignment="Center" >
+            <Grid Grid.Column="1" Background="#30000000">
+            <ProgressBar x:Name="prog" Background="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="4" />
+            <Grid Margin="10,10"  VerticalAlignment="Top" >
                     <TextBlock HorizontalAlignment="Left">
                         <Run Text="Console" FontSize="24"/>
                     </TextBlock>
 
                 </Grid>
-                <ScrollViewer Margin="0,10,0,0" x:Name="scroll" VerticalScrollBarVisibility="Auto">
-                    <TextBlock Margin="10,0,0,0" FontSize="13" x:Name="console" TextWrapping="Wrap" HorizontalAlignment="Left" />
-                </ScrollViewer>
+                
+                <TextBox Margin="10,50,0,0" FontSize="13" x:Name="console" Background="Transparent"
+         BorderThickness="0" TextWrapping="Wrap" HorizontalAlignment="Stretch"
+                         VerticalAlignment="Stretch"
+                         HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" />
+                
 
 
-            </StackPanel>
+            </Grid>
 
             <fw:DropShadowPanel Grid.Column="0" ShadowMode="Outer" Background="#66FFFFFF">
                 <Grid fw:PointerTracker.Enabled="True" Background="#01FFFFFF">
