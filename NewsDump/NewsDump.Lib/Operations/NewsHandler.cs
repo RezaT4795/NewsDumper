@@ -29,6 +29,7 @@ namespace NewsDump.Lib.Operations
             serviceList.Add(new IrnaDumper());
             serviceList.Add(new MehrnewsDumper());
             serviceList.Add(new YjcDumper());
+            serviceList.Add(new TasnimnewsDumper());
             return serviceList;
         }
     }
