@@ -29,7 +29,8 @@ namespace NewsDump.Lib.Operations
 
             var pck = new ExcelPackage();
             var wsEnum = pck.Workbook.Worksheets.Add("News sheet");
-            wsEnum.Cells["A1"].LoadFromCollection(customerObjects, true, TableStyles.Medium9);
+            wsEnum.DefaultColWidth = 18;
+            wsEnum.Cells["A1"].LoadFromCollection(customerObjects, true, TableStyles.Light1);
             wsEnum.Cells[2, 5, customerObjects.Count() + 1, 5].Style.Numberformat.Format = "dd-MM-yy";
 
             pck.SaveAs(expath.AsFile());
