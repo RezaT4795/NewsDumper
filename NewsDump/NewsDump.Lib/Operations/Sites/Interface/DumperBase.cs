@@ -1,4 +1,6 @@
-﻿using System;
+﻿using NewsDump.Lib.Model;
+using NewsDump.Lib.Util;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -27,6 +29,31 @@ namespace NewsDump.Lib.Operations.Sites.Interface
             }
 
             return responseString;
+        }
+
+        public News SetNewsFromFeed(News news, SyndicationItem feed)
+        {
+            var uri = feed.GetUri();
+            if (feed.Title != null)
+            {
+                news.NewsTitle = feed.Title.Text.Trim();
+            }
+
+            news.Link = uri.ToString();
+
+            if (feed.PublishDate != null)
+            {
+                news.PublishDate = feed.PublishDate.DateTime;
+            }
+
+            news.SiteName = uri.Host;
+
+            if (feed.Summary != null)
+            {
+                news.NewsIntro = feed.Summary.Text.Trim();
+            }
+
+            return news;
         }
     }
 }

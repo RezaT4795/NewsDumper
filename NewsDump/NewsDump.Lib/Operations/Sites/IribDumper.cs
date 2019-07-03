@@ -94,30 +94,6 @@ namespace NewsDump.Lib.Operations.Sites
 
         }
 
-        public News SetNewsFromFeed(News news, SyndicationItem feed)
-        {
-            var uri = feed.GetUri();
-            if (feed.Title!=null)
-            {
-                news.NewsTitle = feed.Title.Text.Trim();
-            }
-            
-            news.Link = uri.ToString();
-
-            if (feed.PublishDate!=null)
-            {
-                news.PublishDate = feed.PublishDate.DateTime;
-            }
-            
-            news.Contributors = string.Join(", ", feed.Authors?.Select(x => x.Name)).Trim();
-            news.SiteName = uri.Host;
-
-            if (feed.Summary!=null)
-            {
-                news.NewsIntro = feed.Summary.Text.Trim();
-            }
-           
-            return news;
-        }
+        
     }
 }
