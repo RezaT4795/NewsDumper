@@ -6,7 +6,7 @@
 
         public static event MessageEventHandler OnMessageFired;
 
-        internal static void Notify(string str, string type)
+        public static void Notify(string str, string type)
         {
             OnMessageFired?.Invoke(new MessageArgs { Message = str, Type = type });
         }

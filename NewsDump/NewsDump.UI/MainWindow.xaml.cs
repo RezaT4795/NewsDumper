@@ -97,5 +97,25 @@ namespace NewsDump.UI
                 }
             }
         }
+
+        private void Exportdue_Click(object sender, RoutedEventArgs e)
+        {
+            if (mindate.SelectedDate.HasValue && maxdate.SelectedDate.HasValue)
+            {
+                using (var fbd = new FolderBrowserDialog())
+                {
+                    var result = fbd.ShowDialog();
+
+                    if (fbd.SelectedPath.HasValue())
+                    {
+                        ExportHandler.Export(fbd.SelectedPath, mindate.SelectedDate, maxdate.SelectedDate);
+                    }
+                }
+            }
+            else
+            {
+                EventBus.Notify("Dates are empty", "Alert");
+            }
+        }
     }
 }

@@ -8,83 +8,103 @@
         xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
         fw:AcrylicWindow.ExtendViewIntoTitleBar="True"
         Title="News Dump" Height="500" Width="550">
-    
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="160"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="1" Background="#30000000">
+
+    <Grid Grid.Row="1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1" Background="#30000000">
             <ProgressBar x:Name="prog" Background="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="4" />
             <Grid Margin="10,10"  VerticalAlignment="Top" >
-                    <TextBlock HorizontalAlignment="Left">
+                <TextBlock HorizontalAlignment="Left">
                         <Run Text="Console" FontSize="24"/>
-                    </TextBlock>
-
-                </Grid>
-                
-                <TextBox Margin="10,50,0,0" FontSize="13" x:Name="console" Background="Transparent"
-         BorderThickness="0" TextWrapping="Wrap" HorizontalAlignment="Stretch"
-                         VerticalAlignment="Stretch" Foreground="{DynamicResource SystemBaseHighColorBrush}"
-                         HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" />
-                
-
+                </TextBlock>
 
             </Grid>
 
-            <fw:DropShadowPanel Grid.Column="0" ShadowMode="Outer" Background="#66FFFFFF">
-                <Grid fw:PointerTracker.Enabled="True" Background="#01FFFFFF">
-                    <StackPanel x:Name="commandbar">
-                        <!--<Grid Grid.Column="1" >-->
-                        <StackPanel Margin="10" VerticalAlignment="Center" >
-                            <TextBlock>
+            <TextBox Margin="10,50,0,0" FontSize="13" x:Name="console" Background="Transparent"
+         BorderThickness="0" TextWrapping="Wrap" HorizontalAlignment="Stretch"
+                         VerticalAlignment="Stretch" Foreground="{DynamicResource SystemBaseHighColorBrush}"
+                         HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" />
+
+
+
+        </Grid>
+
+        <fw:DropShadowPanel Grid.Column="0" ShadowMode="Outer" Background="#66FFFFFF">
+            <Grid fw:PointerTracker.Enabled="True" Background="#01FFFFFF">
+                <StackPanel x:Name="commandbar">
+                    <!--<Grid Grid.Column="1" >-->
+                    <StackPanel Margin="10" VerticalAlignment="Center" >
+                        <TextBlock>
                         <Run Text="Commands" FontSize="24"/>
-                            </TextBlock>
-                        </StackPanel>
+                        </TextBlock>
+                    </StackPanel>
 
-                        <StackPanel 
-                        HorizontalAlignment="Left" Margin="25" VerticalAlignment="Bottom">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel  HorizontalAlignment="Center">
 
 
-                            <Button x:Name="clrconsole" HorizontalAlignment="Right" Content="Clear console" Margin="0,10" Width="100" Height="50" 
+                            <Button x:Name="clrconsole" HorizontalAlignment="Center" Content="Clear console" Margin="0,5" Width="100" Height="50" 
                             Style="{StaticResource ButtonRevealStyle}" Background="Transparent"
-                                Click="Clrconsole_Click"
+                                Click="Clrconsole_Click" 
                                     Foreground="{DynamicResource SystemBaseHighColorBrush}"
                                 />
 
-                            <Button x:Name="rundumper" HorizontalAlignment="Right" Content="Run dumper" Margin="0,10" Width="100" Height="50" 
+                            <Button x:Name="rundumper" HorizontalAlignment="Center" Content="Run dumper" Margin="0,5" Width="100" Height="50" 
                             Style="{StaticResource ButtonRevealStyle}" Background="Transparent"
                                     Foreground="{DynamicResource SystemBaseHighColorBrush}"
                                 Click="Rundumper_Click"/>
 
 
-                            <Button  x:Name="exportall" HorizontalAlignment="Right" Content="Export all" Margin="0,10" Width="100" Height="50" 
+                            <Button  x:Name="exportall" HorizontalAlignment="Center" Content="Export all" Margin="0,5" Width="100" Height="50" 
                             Style="{StaticResource ButtonRevealStyle}" Background="Transparent"
                                      Foreground="{DynamicResource SystemBaseHighColorBrush}"
                                 Click="Exportall_Click"/>
 
-                            <Button x:Name="exportthis" HorizontalAlignment="Right" Content="Export this" Margin="0,10" Width="100" Height="50" 
+                            
+
+                            <Button x:Name="exportdue" HorizontalAlignment="Center" Content="Export due" Margin="0,5" Width="100" Height="50" 
+                            Style="{StaticResource ButtonRevealStyle}" 
+                                    Foreground="{DynamicResource SystemBaseHighColorBrush}"
+                                    Background="Transparent" Click="Exportdue_Click"/>
+                            <StackPanel MinWidth="130">
+                                <Grid >
+                                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Min" />
+                                    <DatePicker HorizontalAlignment="Right" Name="mindate" VerticalAlignment="Center"  />
+                                </Grid>
+
+                                <Grid >
+                                    <TextBlock HorizontalAlignment="Left" Text="Max" VerticalAlignment="Center" />
+                                    <DatePicker HorizontalAlignment="Right" Name="maxdate" VerticalAlignment="Center"  />
+                                </Grid>
+                            </StackPanel>
+
+                            <Button x:Name="exportthis" HorizontalAlignment="Center" Content="Export pagination" Margin="0,5" Width="100" Height="50" 
                             Style="{StaticResource ButtonRevealStyle}" 
                                     Foreground="{DynamicResource SystemBaseHighColorBrush}"
                                     Background="Transparent" Click="Exportthis_Click"/>
-                            <StackPanel>
+                            <StackPanel HorizontalAlignment="Center" MinWidth="130">
                                 <Grid >
                                     <TextBlock HorizontalAlignment="Left" Text="Skip" />
-                                    <TextBox x:Name="skip" HorizontalAlignment="Right" Width="40" Text="0" />
+                                    <TextBox x:Name="skip" HorizontalAlignment="Right" Width="50" Text="0" />
                                 </Grid>
 
                                 <Grid >
                                     <TextBlock HorizontalAlignment="Left" Text="Take" />
-                                    <TextBox x:Name="take" HorizontalAlignment="Right" Width="40" Text="100" />
+                                    <TextBox x:Name="take" HorizontalAlignment="Right" Width="50" Text="100" />
                                 </Grid>
                             </StackPanel>
                         </StackPanel>
-                    </StackPanel>
+                    </ScrollViewer>
+
+                </StackPanel>
 
 
-                </Grid>
-            </fw:DropShadowPanel>
-        
+            </Grid>
+        </fw:DropShadowPanel>
+
     </Grid>
-    
+
 </fw:AcrylicWindow>

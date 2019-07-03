@@ -23,6 +23,11 @@ namespace NewsDump.Lib.Operations
             var news = NewsOperation.GetAllNews().Skip(skip).Take(take);
             WriteToExcel(news, path);
         }
+        public static void Export(string path, DateTime? min, DateTime? max)
+        {
+            var news = NewsOperation.Where(x => x.PublishDate < max && x.PublishDate > min);
+            WriteToExcel(news, path);
+        }
         static void WriteToExcel(IEnumerable<News> customerObjects, string path)
         {
             if (customerObjects.Any())

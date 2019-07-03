@@ -2,7 +2,7 @@
   "profiles": {
     "NewsDump.Console": {
       "commandName": "Project",
-      "commandLineArgs": "Export -f \"./\""
+      "commandLineArgs": "Export -f \"./\" -m \"07/03/2019\" -x \"07/04/2019\""
     }
   }
 }
