@@ -12,9 +12,7 @@ namespace NewsDump.Lib.Model
         public string NewsIntro { get; set; }
         public string NewsBody { get; set; }
         public DateTime PublishDate { get; set; }
-        public string NewsSource { get; set; }
         public string SiteName { get; set; }
-        public string Contributors { get; set; }
 
         public override string ToString() => this.NewsTitle;
     }
