@@ -21,7 +21,7 @@ namespace NewsDump.Lib.Operations.Sites
             htmlDoc.LoadHtml(html);
 
             var printButtton1= htmlDoc.DocumentNode.GetElementsWithClass("div", "item-title")?.FirstOrDefault();
-            var printButtton2= printButtton1.GetElementsWithClass("h4", "subtitle")?.FirstOrDefault();
+            var printButtton2= printButtton1.GetElementsWithClass("h1", "title")?.FirstOrDefault();
             if (printButtton2 != null)
             {
                 var printValue = printButtton2.SelectSingleNode("//a[contains(@href, '/news/')]").Attributes["href"].Value;
