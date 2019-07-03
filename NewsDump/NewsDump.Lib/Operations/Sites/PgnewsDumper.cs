@@ -46,7 +46,7 @@ namespace NewsDump.Lib.Operations.Sites
 
         public void RunAndSave()
         {
-            EventBus.Notify("This feed has no links", "Info");
+            EventBus.Notify("Pgnews dumper running", "Info");
 
             var xml = Get(Constants.PgnewsRss);
             var feed = GetFeed(xml);
@@ -58,7 +58,7 @@ namespace NewsDump.Lib.Operations.Sites
                     //Validate Uri
                     if (item.Links.None())
                     {
-                        EventBus.Notify("Something is wrong with this feed", "Alert");
+                        EventBus.Notify("This feed has no links", "Alert");
                         continue;
                     }
 
