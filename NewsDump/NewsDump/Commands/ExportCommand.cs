@@ -15,7 +15,7 @@ namespace NewsDump.Commands
             HasRequiredOption("f|folder=", "The folder path of exported file", p => FileLocation = p);
 
             HasOption("s|skip=", "Pagination, skips the numeration",
-            t => Skip = t);
+            s => Skip = s);
 
             HasOption("t|take=", "Pagination, takes the numeration",
             t => Take = t);
