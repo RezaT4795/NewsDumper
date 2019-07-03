@@ -1,4 +1,5 @@
-﻿using NewsDump.Lib.Data;
+﻿using MD.PersianDateTime.Standard;
+using NewsDump.Lib.Data;
 using System;
 
 namespace NewsDump.Lib.Model
@@ -10,6 +11,7 @@ namespace NewsDump.Lib.Model
         public string NewsIntro { get; set; }
         public string NewsBody { get; set; }
         public DateTime PublishDate { get; set; }
+        public string PublishDateInFarsi { get => new PersianDateTime(PublishDate).ToString(); }
         public string SiteName { get; set; }
 
         public override string ToString() => this.NewsTitle;

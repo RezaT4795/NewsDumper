@@ -20,5 +20,13 @@ namespace NewsDump.Lib.Data
         public DbSet<News> News { get; set; }
 
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<News>()
+                .Ignore(x => x.PublishDateInFarsi);
+
+
+        }
+
     }
 }
