@@ -4,8 +4,11 @@ using NewsDump.Lib.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.ServiceModel.Syndication;
 using System.Text;
+using System.Xml;
+using HtmlAgilityPack;
+using System.ServiceModel.Syndication;
+using Olive;
 
 namespace NewsDump.Lib.Operations.Sites
 {
@@ -13,20 +16,108 @@ namespace NewsDump.Lib.Operations.Sites
     {
         public News ExtractNews(string html, Uri baseUri)
         {
-            throw new NotImplementedException();
+            var htmlDoc = new HtmlDocument();
+            htmlDoc.LoadHtml(html);
+
+            var printValue = htmlDoc.DocumentNode.SelectSingleNode("//a[contains(@href, 'template=print')]").Attributes["href"].Value;
+
+            var printUri = $"http://{baseUri.Host}{printValue}";
+            var printHtml = Get(printUri);
+
+            var printDoc = new HtmlDocument();
+            printDoc.LoadHtml(printHtml);
+
+            var body = printDoc.DocumentNode.GetElementsWithClass("div", "body")?.FirstOrDefault();
+            var paragraphs = body.ChildNodes.Where(x => x.Name == "p");
+            var text = string.Join(Environment.NewLine,paragraphs.Select(x => x.InnerText.HtmlDecode().Trim()));
+
+            if (text.IsEmpty())
+            {
+                //Validate for trivia character
+                if (!body.InnerText.HtmlDecode().StartsWith("{$"))
+                {
+                    text = body.InnerText.HtmlDecode().Trim();
+                }
+            }
+
+            return new News { NewsBody=text };
         }
 
         
 
         public void RunAndSave()
         {
-            
+            EventBus.Notify("Pgnews Dumper initializing", "Info");
+
+            var xml = Get(Constants.PgnewsRss);
+            var feed = GetFeed(xml);
+
+            foreach (var item in feed.Items)
+            {
+
+                //Validate Uri
+                if (item.Links.None())
+                {
+                    EventBus.Notify("Something is wrong with this feed","Alert");
+                    continue;
+                }
+
+                //Run operation for new items only
+                if (item.NewsExists())
+                {
+                    continue;
+                }
+
+                var html = Get(item.GetUri().ToString());
+                
+
+                var news = ExtractNews(html,item.GetUri());
+
+                
+                
+
+                //Set data from feed
+                news = SetNewsFromFeed(news, item);
+
+                if (news.NewsIntro.IsEmpty() && news.NewsBody.HasValue())
+                {
+                    news.NewsIntro = news.NewsBody.Take(0,100)+"...";
+                }
+                
+
+                //Save in database
+                news.SaveNewsInDatabase();
+
+            }
+
+            EventBus.Notify("Pgnews Dumper Exiting", "Info");
 
         }
 
         public News SetNewsFromFeed(News news, SyndicationItem feed)
         {
-            throw new NotImplementedException();
+            var uri = feed.GetUri();
+            if (feed.Title!=null)
+            {
+                news.NewsTitle = feed.Title.Text.Trim();
+            }
+            
+            news.Link = uri.ToString();
+
+            if (feed.PublishDate!=null)
+            {
+                news.PublishDate = feed.PublishDate.DateTime;
+            }
+            
+            news.Contributors = string.Join(", ", feed.Authors?.Select(x => x.Name)).Trim();
+            news.SiteName = uri.Host;
+
+            if (feed.Summary!=null)
+            {
+                news.NewsIntro = feed.Summary.Text.Trim();
+            }
+           
+            return news;
         }
     }
 }

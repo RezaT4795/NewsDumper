@@ -24,6 +24,7 @@ namespace NewsDump.Lib.Operations
             var serviceList = new List<IDumper>();
             serviceList.Add(new IribDumper());
             serviceList.Add(new SookDumper());
+            serviceList.Add(new PgnewsDumper());
             return serviceList;
         }
     }
