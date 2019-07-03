@@ -54,8 +54,9 @@ namespace NewsDump.Lib.Operations.Sites
 
             foreach (var item in feed.Items)
             {
-
-                //Validate Uri
+                try
+                {
+//Validate Uri
                 if (item.Links.None())
                 {
                     EventBus.Notify("This feed has no links", "Alert");
@@ -87,6 +88,14 @@ namespace NewsDump.Lib.Operations.Sites
 
                 //Save in database
                 news.SaveNewsInDatabase();
+                }
+                catch (Exception ex)
+                {
+
+                    EventBus.Notify(ex.Message, "Error");
+                }
+
+                
 
             }
 

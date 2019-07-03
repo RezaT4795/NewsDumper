@@ -58,8 +58,9 @@ namespace NewsDump.Lib.Operations.Sites
 
             foreach (var item in feed.Items)
             {
-
-                //Validate Uri
+                try
+                {
+//Validate Uri
                 if (item.Links.None())
                 {
                     EventBus.Notify("This feed has no links", "Alert");
@@ -95,6 +96,14 @@ namespace NewsDump.Lib.Operations.Sites
             }
 
             EventBus.Notify("Mehrnews dumper exiting", "Info");
+                }
+                catch (Exception ex)
+                {
+
+                    EventBus.Notify(ex.Message, "Error");
+                }
+
+                
 
         }
 

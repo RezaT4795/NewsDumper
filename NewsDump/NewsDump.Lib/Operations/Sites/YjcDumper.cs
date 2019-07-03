@@ -55,39 +55,47 @@ namespace NewsDump.Lib.Operations.Sites
 
             foreach (var item in feed.Items)
             {
-
-                //Validate Uri
-                if (item.Links.None())
+                try
                 {
-                    EventBus.Notify("This feed has no links", "Alert");
-                    continue;
-                }
+                    //Validate Uri
+                    if (item.Links.None())
+                    {
+                        EventBus.Notify("This feed has no links", "Alert");
+                        continue;
+                    }
 
-                //Run operation for new items only
-                if (item.NewsExists())
+                    //Run operation for new items only
+                    if (item.NewsExists())
+                    {
+                        continue;
+                    }
+
+                    var html = Get(item.GetUri().ToString());
+
+
+                    var news = ExtractNews(html, item.GetUri());
+
+
+
+
+                    //Set data from feed
+                    news = SetNewsFromFeed(news, item);
+
+                    if (news.NewsIntro.IsEmpty() && news.NewsBody.HasValue())
+                    {
+                        news.NewsIntro = news.NewsBody.Take(0, 100) + "...";
+                    }
+
+
+                    //Save in database
+                    news.SaveNewsInDatabase();
+                }
+                catch (Exception ex)
                 {
-                    continue;
-                }
 
-                var html = Get(item.GetUri().ToString());
-                
-
-                var news = ExtractNews(html,item.GetUri());
-
-                
-                
-
-                //Set data from feed
-                news = SetNewsFromFeed(news, item);
-
-                if (news.NewsIntro.IsEmpty() && news.NewsBody.HasValue())
-                {
-                    news.NewsIntro = news.NewsBody.Take(0,100)+"...";
+                    EventBus.Notify(ex.Message, "Error");
                 }
                 
-
-                //Save in database
-                news.SaveNewsInDatabase();
 
             }
 
