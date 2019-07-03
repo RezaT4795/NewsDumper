@@ -28,6 +28,7 @@ namespace NewsDump.Lib.Operations
             serviceList.Add(new PgnewsDumper());
             serviceList.Add(new IrnaDumper());
             serviceList.Add(new MehrnewsDumper());
+            serviceList.Add(new YjcDumper());
             return serviceList;
         }
     }
