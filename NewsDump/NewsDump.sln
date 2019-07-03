@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28922.388
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsDump.Console", "NewsDump\NewsDump.Console.csproj", "{13B013E6-4081-48B6-8982-757A58C84A8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsDump.Console", "NewsDump\NewsDump.Console.csproj", "{13B013E6-4081-48B6-8982-757A58C84A8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsDump.Lib", "NewsDump.Lib\NewsDump.Lib.csproj", "{DE929CD6-40B3-4335-AEA5-AC3762A1FB6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsDump.Lib", "NewsDump.Lib\NewsDump.Lib.csproj", "{DE929CD6-40B3-4335-AEA5-AC3762A1FB6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsDump.UI", "NewsDump.UI\NewsDump.UI.csproj", "{7A7B688D-B479-4FC6-983D-7BA68442B90E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{DE929CD6-40B3-4335-AEA5-AC3762A1FB6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE929CD6-40B3-4335-AEA5-AC3762A1FB6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE929CD6-40B3-4335-AEA5-AC3762A1FB6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A7B688D-B479-4FC6-983D-7BA68442B90E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A7B688D-B479-4FC6-983D-7BA68442B90E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A7B688D-B479-4FC6-983D-7BA68442B90E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A7B688D-B479-4FC6-983D-7BA68442B90E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
