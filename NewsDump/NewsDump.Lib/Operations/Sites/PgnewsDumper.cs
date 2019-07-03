@@ -50,7 +50,7 @@ namespace NewsDump.Lib.Operations.Sites
 
         public void RunAndSave()
         {
-            EventBus.Notify("Pgnews dumper running", "Info");
+            EventBus.Notify("This feed has no links", "Info");
 
             var xml = Get(Constants.PgnewsRss);
             var feed = GetFeed(xml);

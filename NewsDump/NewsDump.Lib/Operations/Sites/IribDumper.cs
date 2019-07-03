@@ -58,7 +58,7 @@ namespace NewsDump.Lib.Operations.Sites
                 //Validate Uri
                 if (item.Links.None())
                 {
-                    EventBus.Notify("Something is wrong with this feed","Alert");
+                    EventBus.Notify("This feed has no links", "Alert");
                     continue;
                 }
 
