@@ -9,8 +9,8 @@ using NewsDump.Lib.Data;
 namespace NewsDump.Lib.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20190627121854_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20190703121742_BaseMigration")]
+    partial class BaseMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,8 +28,6 @@ namespace NewsDump.Lib.Migrations
                     b.Property<string>("NewsBody");
 
                     b.Property<string>("NewsIntro");
-
-                    b.Property<string>("NewsSource");
 
                     b.Property<string>("NewsTitle");
 

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NewsDump.Lib.Migrations
 {
-    public partial class FirstMigration : Migration
+    public partial class BaseMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,7 +18,6 @@ namespace NewsDump.Lib.Migrations
                     NewsIntro = table.Column<string>(nullable: true),
                     NewsBody = table.Column<string>(nullable: true),
                     PublishDate = table.Column<DateTime>(nullable: false),
-                    NewsSource = table.Column<string>(nullable: true),
                     SiteName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
