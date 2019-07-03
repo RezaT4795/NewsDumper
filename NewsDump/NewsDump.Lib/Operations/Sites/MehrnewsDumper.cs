@@ -51,7 +51,7 @@ namespace NewsDump.Lib.Operations.Sites
 
         public void RunAndSave()
         {
-            EventBus.Notify("Mehrnews Dumper initializing", "Info");
+            EventBus.Notify("Mehrnews dumper running", "Info");
 
             var xml = Get(Constants.MehrnewsRss);
             var feed = GetFeed(xml);
@@ -94,7 +94,7 @@ namespace NewsDump.Lib.Operations.Sites
 
             }
 
-            EventBus.Notify("Mehrnews Dumper Exiting", "Info");
+            EventBus.Notify("Mehrnews dumper exiting", "Info");
 
         }
 

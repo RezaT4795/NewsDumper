@@ -49,7 +49,7 @@ namespace NewsDump.Lib.Operations.Sites
 
         public void RunAndSave()
         {
-            EventBus.Notify("Sook Dumper Running", "Info");
+            EventBus.Notify("Sook dumper running", "Info");
 
             var xml = Get(Constants.SookRss);
             var feed = GetFeed(xml);
@@ -92,7 +92,7 @@ namespace NewsDump.Lib.Operations.Sites
 
             }
 
-            EventBus.Notify("Sook Dumper exiting", "Info");
+            EventBus.Notify("Sook dumper exiting", "Info");
         }
 
         public News SetNewsFromFeed(News news, SyndicationItem feed)

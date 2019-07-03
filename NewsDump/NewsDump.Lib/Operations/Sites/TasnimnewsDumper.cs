@@ -39,7 +39,7 @@ namespace NewsDump.Lib.Operations.Sites
 
         public void RunAndSave()
         {
-            EventBus.Notify("Tasnim News Dumper initializing", "Info");
+            EventBus.Notify("Tasnimnews dumper running", "Info");
 
             var xml = Get(Constants.TasnimnewsRss);
             var feed = GetFeed(xml);
@@ -82,7 +82,7 @@ namespace NewsDump.Lib.Operations.Sites
 
             }
 
-            EventBus.Notify("Tasnim News Dumper Exiting", "Info");
+            EventBus.Notify("Tasnimnews dumper exiting", "Info");
 
         }
 

@@ -52,7 +52,7 @@ namespace NewsDump.Lib.Operations.Sites
 
         public void RunAndSave()
         {
-            EventBus.Notify("Irna Dumper initializing", "Info");
+            EventBus.Notify("Irna dumper running", "Info");
 
             var xml = Get(Constants.IrnaRss);
             var feed = GetFeed(xml);
@@ -95,7 +95,7 @@ namespace NewsDump.Lib.Operations.Sites
 
             }
 
-            EventBus.Notify("Irna Dumper Exiting", "Info");
+            EventBus.Notify("Irna dumper exiting", "Info");
 
         }
 

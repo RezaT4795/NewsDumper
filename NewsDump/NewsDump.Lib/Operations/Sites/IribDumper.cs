@@ -49,7 +49,7 @@ namespace NewsDump.Lib.Operations.Sites
 
         public void RunAndSave()
         {
-            EventBus.Notify("IRIB Dumper initializing", "Info");
+            EventBus.Notify("IRIB dumper running", "Info");
 
             var xml = Get(Constants.IribRss);
             var feed = GetFeed(xml);
@@ -92,7 +92,7 @@ namespace NewsDump.Lib.Operations.Sites
 
             }
 
-            EventBus.Notify("IRIB Dumper Exiting", "Info");
+            EventBus.Notify("IRIB dumper exiting", "Info");
 
         }
 

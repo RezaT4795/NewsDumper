@@ -50,7 +50,7 @@ namespace NewsDump.Lib.Operations.Sites
 
         public void RunAndSave()
         {
-            EventBus.Notify("Pgnews Dumper initializing", "Info");
+            EventBus.Notify("Pgnews dumper running", "Info");
 
             var xml = Get(Constants.PgnewsRss);
             var feed = GetFeed(xml);
@@ -93,7 +93,7 @@ namespace NewsDump.Lib.Operations.Sites
 
             }
 
-            EventBus.Notify("Pgnews Dumper Exiting", "Info");
+            EventBus.Notify("Pgnews dumper exiting", "Info");
 
         }
 

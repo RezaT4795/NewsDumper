@@ -48,7 +48,7 @@ namespace NewsDump.Lib.Operations.Sites
 
         public void RunAndSave()
         {
-            EventBus.Notify("Farsnews Dumper initializing", "Info");
+            EventBus.Notify("Farsnews dumper running", "Info");
 
             var xml = Get(Constants.FarsnewsRss);
             var feed = GetFeed(xml);
@@ -91,7 +91,7 @@ namespace NewsDump.Lib.Operations.Sites
 
             }
 
-            EventBus.Notify("Farsnews Dumper Exiting", "Info");
+            EventBus.Notify("Farsnews dumper exiting", "Info");
 
         }
 

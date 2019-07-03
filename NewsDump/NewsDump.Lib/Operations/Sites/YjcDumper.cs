@@ -48,7 +48,7 @@ namespace NewsDump.Lib.Operations.Sites
 
         public void RunAndSave()
         {
-            EventBus.Notify("YJC Dumper initializing", "Info");
+            EventBus.Notify("YJC dumper running", "Info");
 
             var xml = Get(Constants.YjcRss);
             var feed = GetFeed(xml);
@@ -91,7 +91,7 @@ namespace NewsDump.Lib.Operations.Sites
 
             }
 
-            EventBus.Notify("YJC Dumper Exiting", "Info");
+            EventBus.Notify("YJC dumper exiting", "Info");
 
         }
 
