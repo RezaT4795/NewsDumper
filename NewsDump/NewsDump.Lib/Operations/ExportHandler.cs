@@ -25,16 +25,24 @@ namespace NewsDump.Lib.Operations
         }
         static void WriteToExcel(IEnumerable<News> customerObjects, string path)
         {
-            var expath = Path.Combine(path.AsDirectory().FullName, $"{DateTime.UtcNow.Ticks}.xlsx");
+            if (customerObjects.Any())
+            {
+                var expath = Path.Combine(path.AsDirectory().FullName, $"{DateTime.UtcNow.Ticks}.xlsx");
 
-            var pck = new ExcelPackage();
-            var wsEnum = pck.Workbook.Worksheets.Add("News sheet");
-            wsEnum.DefaultColWidth = 18;
-            wsEnum.Cells["A1"].LoadFromCollection(customerObjects, true, TableStyles.Light1);
-            wsEnum.Cells[2, 5, customerObjects.Count() + 1, 5].Style.Numberformat.Format = "dd-MM-yy";
+                var pck = new ExcelPackage();
+                var wsEnum = pck.Workbook.Worksheets.Add("News sheet");
+                wsEnum.DefaultColWidth = 18;
+                wsEnum.Cells["A1"].LoadFromCollection(customerObjects, true, TableStyles.Light1);
+                wsEnum.Cells[2, 5, customerObjects.Count() + 1, 5].Style.Numberformat.Format = "dd-MM-yy";
 
-            pck.SaveAs(expath.AsFile());
-            EventBus.Notify($"{customerObjects.Count()} rows saved as {expath}", "info");
+                pck.SaveAs(expath.AsFile());
+                EventBus.Notify($"{customerObjects.Count()} rows saved as {expath}", "info");
+            }
+            else
+            {
+                EventBus.Notify("There is nothing to save, skipping", "info");
+            }
+
         }
     }
 }
