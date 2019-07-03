@@ -22,10 +22,10 @@ namespace NewsDump.Lib.Operations
         private static List<IDumper> RegisterServices()
         {
             var serviceList = new List<IDumper>();
-            //serviceList.Add(new IribDumper());
-            //serviceList.Add(new SookDumper());
-            //serviceList.Add(new PgnewsDumper());
             serviceList.Add(new FarsnewsDumper());
+            serviceList.Add(new IribDumper());
+            serviceList.Add(new SookDumper());
+            serviceList.Add(new PgnewsDumper());
             return serviceList;
         }
     }
