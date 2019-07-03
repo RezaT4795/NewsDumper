@@ -16,30 +16,33 @@ namespace NewsDump.Lib.Operations.Sites
     {
         public News ExtractNews(string html, Uri baseUri)
         {
+            var text = "";
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(html);
 
             var printValue = htmlDoc.DocumentNode.SelectSingleNode("//a[contains(@href, 'template=print')]").Attributes["href"].Value;
-
-            var printUri = $"http://{baseUri.Host}{printValue}";
-            var printHtml = Get(printUri);
-
-            var printDoc = new HtmlDocument();
-            printDoc.LoadHtml(printHtml);
-
-            var body = printDoc.DocumentNode.GetElementsWithClass("div", "body")?.FirstOrDefault();
-            var paragraphs = body.ChildNodes.Where(x => x.Name == "p");
-            var text = string.Join(Environment.NewLine,paragraphs.Select(x => x.InnerText.HtmlDecode().Trim()));
-
-            if (text.IsEmpty())
+            //This site is unstable. I've handled the !null value below, but it might still throw null exception. 
+            if (printValue != null)
             {
-                //Validate for trivia character
-                if (!body.InnerText.HtmlDecode().StartsWith("{$"))
+                var printUri = $"http://{baseUri.Host}{printValue}";
+                var printHtml = Get(printUri);
+
+                var printDoc = new HtmlDocument();
+                printDoc.LoadHtml(printHtml);
+
+                var body = printDoc.DocumentNode.GetElementsWithClass("div", "body")?.FirstOrDefault();
+                var paragraphs = body.ChildNodes.Where(x => x.Name == "p");
+                text = string.Join(Environment.NewLine,paragraphs.Select(x => x.InnerText.HtmlDecode().Trim()));
+
+                if (text.IsEmpty())
                 {
-                    text = body.InnerText.HtmlDecode().Trim();
+                    //Validate for trivia character
+                    if (!body.InnerText.HtmlDecode().StartsWith("{$"))
+                    {
+                        text = body.InnerText.HtmlDecode().Trim();
+                    }
                 }
             }
-
             return new News { NewsBody=text };
         }
 
