@@ -21,7 +21,7 @@ namespace NewsDump.Lib.Operations.Sites
             htmlDoc.LoadHtml(html);
 
             var printValue = htmlDoc.DocumentNode.SelectSingleNode("//a[contains(@href, 'template=print')]").Attributes["href"].Value;
-            //This site is unstable. I've handled the !null value below, but it might still throw null exception. 
+            //This site is unstable. I've handled the !null value below so it may proceed only when printValue is not null, but it might still throw null exception. 
             if (printValue != null)
             {
                 var printUri = $"http://{baseUri.Host}{printValue}";
