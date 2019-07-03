@@ -30,7 +30,7 @@ namespace NewsDump.Lib.Util
                    )
                 );
         }
-
+        public static string RemoveBrackets(this string input) => Regex.Replace(input, @" ?\{.*?\}", string.Empty);
         public static Uri GetUri(this SyndicationItem item) => item.Links?.FirstOrDefault().Uri;
 
         public static IEnumerable<string>GetItemsWithinQuotes(this string str)

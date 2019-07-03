@@ -31,15 +31,13 @@ namespace NewsDump.Lib.Operations.Sites
 
             var body = printDoc.DocumentNode.GetElementsWithClass("div", "body")?.FirstOrDefault();
             var paragraphs = body.ChildNodes.Where(x => x.Name == "p");
-            var text = string.Join(Environment.NewLine,paragraphs.Select(x => x.InnerText.HtmlDecode().Trim()));
+            var text = string.Join(Environment.NewLine,paragraphs.Select(x => x.InnerText.HtmlDecode().RemoveBrackets().Trim()));
 
             if (text.IsEmpty())
             {
-                //Validate for trivia character
-                if (!body.InnerText.HtmlDecode().StartsWith("{$"))
-                {
-                    text = body.InnerText.HtmlDecode().Trim();
-                }
+                
+                text = body.InnerText.HtmlDecode().RemoveBrackets().Trim();
+                
             }
 
             return new News { NewsBody=text };
