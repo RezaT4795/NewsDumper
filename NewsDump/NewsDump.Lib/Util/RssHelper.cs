@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.ServiceModel.Syndication;
-using System.Text;
 using System.Xml;
 
 namespace NewsDump.Lib.Util
@@ -15,7 +12,7 @@ namespace NewsDump.Lib.Util
             {
                 return SyndicationFeed.Load(reader);
             }
-            
+
         }
     }
 }

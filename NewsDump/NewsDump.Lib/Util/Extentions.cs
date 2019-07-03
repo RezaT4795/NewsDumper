@@ -1,11 +1,10 @@
 ﻿using HtmlAgilityPack;
+using Olive;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.ServiceModel.Syndication;
-using Olive;
+using System.Text.RegularExpressions;
 
 namespace NewsDump.Lib.Util
 {
@@ -33,15 +32,15 @@ namespace NewsDump.Lib.Util
         public static string RemoveBrackets(this string input) => Regex.Replace(input, @" ?\{.*?\}", string.Empty);
         public static Uri GetUri(this SyndicationItem item) => item.Links?.FirstOrDefault().Uri;
 
-        public static IEnumerable<string>GetItemsWithinQuotes(this string str)
+        public static IEnumerable<string> GetItemsWithinQuotes(this string str)
         {
             return from Match match in Regex.Matches(str, "\"([^\"]*)\"")
-                         select match.ToString().ToLower().Remove("\"");
+                   select match.ToString().ToLower().Remove("\"");
         }
 
-        public static string Take (this string str , int start,int length)
+        public static string Take(this string str, int start, int length)
         {
-            if (length+start>str.Length)
+            if (length + start > str.Length)
             {
                 return str;
             }

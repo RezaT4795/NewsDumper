@@ -1,14 +1,10 @@
+using HtmlAgilityPack;
 using NewsDump.Lib.Model;
 using NewsDump.Lib.Operations.Sites.Interface;
 using NewsDump.Lib.Util;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
-using HtmlAgilityPack;
-using System.ServiceModel.Syndication;
 using Olive;
+using System;
+using System.Linq;
 
 namespace NewsDump.Lib.Operations.Sites
 {
@@ -20,10 +16,10 @@ namespace NewsDump.Lib.Operations.Sites
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(html);
 
-            var printButtton1= htmlDoc.DocumentNode.GetElementsWithClass("div", "print-surl", "d-flex", "align-items-center", "justify-content-center")?.FirstOrDefault();
+            var printButtton1 = htmlDoc.DocumentNode.GetElementsWithClass("div", "print-surl", "d-flex", "align-items-center", "justify-content-center")?.FirstOrDefault();
             if (printButtton1 != null)
             {
-                var printButtton2= printButtton1.GetElementsWithClass("div", "print","ml-2")?.FirstOrDefault();
+                var printButtton2 = printButtton1.GetElementsWithClass("div", "print", "ml-2")?.FirstOrDefault();
                 var printValue = printButtton2.SelectSingleNode("//a[contains(@href, '/printnews/')]").Attributes["href"].Value;
 
                 var printUri = $"http://{baseUri.Host}{printValue}";
@@ -34,17 +30,17 @@ namespace NewsDump.Lib.Operations.Sites
 
                 var body = printDoc.DocumentNode.GetElementsWithClass("div", "p-nt")?.FirstOrDefault();
                 var paragraphs = body.ChildNodes.Where(x => x.Name == "p");
-                text = string.Join(Environment.NewLine,paragraphs.Select(x => x.InnerText.HtmlDecode().Trim()));
+                text = string.Join(Environment.NewLine, paragraphs.Select(x => x.InnerText.HtmlDecode().Trim()));
 
                 if (text.IsEmpty())
                 {
                     text = body.InnerText.HtmlDecode().Trim();
                 }
             }
-            return new News { NewsBody=text };
+            return new News { NewsBody = text };
         }
 
-        
+
 
         public void RunAndSave()
         {
@@ -57,45 +53,45 @@ namespace NewsDump.Lib.Operations.Sites
             {
                 try
                 {
-//Validate Uri
-                if (item.Links.None())
-                {
-                    EventBus.Notify("This feed has no links","Alert");
-                    continue;
-                }
+                    //Validate Uri
+                    if (item.Links.None())
+                    {
+                        EventBus.Notify("This feed has no links", "Alert");
+                        continue;
+                    }
 
-                //Run operation for new items only
-                if (item.NewsExists())
-                {
-                    continue;
-                }
+                    //Run operation for new items only
+                    if (item.NewsExists())
+                    {
+                        continue;
+                    }
 
-                var html = Get(item.GetUri().ToString());
-                
+                    var html = Get(item.GetUri().ToString());
 
-                var news = ExtractNews(html,item.GetUri());
 
-                
-                
+                    var news = ExtractNews(html, item.GetUri());
 
-                //Set data from feed
-                news = SetNewsFromFeed(news, item);
 
-                if (news.NewsIntro.IsEmpty() && news.NewsBody.HasValue())
-                {
-                    news.NewsIntro = news.NewsBody.Take(0,100)+"...";
-                }
-                
 
-                //Save in database
-                news.SaveNewsInDatabase();
+
+                    //Set data from feed
+                    news = SetNewsFromFeed(news, item);
+
+                    if (news.NewsIntro.IsEmpty() && news.NewsBody.HasValue())
+                    {
+                        news.NewsIntro = news.NewsBody.Take(0, 100) + "...";
+                    }
+
+
+                    //Save in database
+                    news.SaveNewsInDatabase();
                 }
                 catch (Exception ex)
                 {
 
                     EventBus.Notify(ex.Message, "Error");
                 }
-                
+
 
             }
 
@@ -103,6 +99,6 @@ namespace NewsDump.Lib.Operations.Sites
 
         }
 
-       
+
     }
 }

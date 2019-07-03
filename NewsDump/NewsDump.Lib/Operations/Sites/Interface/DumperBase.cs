@@ -1,11 +1,8 @@
 ﻿using NewsDump.Lib.Model;
 using NewsDump.Lib.Util;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.ServiceModel.Syndication;
-using System.Text;
 
 namespace NewsDump.Lib.Operations.Sites.Interface
 {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace NewsDump.Lib.Util
+﻿namespace NewsDump.Lib.Util
 {
     public static class EventBus
     {
@@ -10,7 +6,7 @@ namespace NewsDump.Lib.Util
 
         public static event MessageEventHandler OnMessageFired;
 
-        internal static void Notify(string str ,string type)
+        internal static void Notify(string str, string type)
         {
             OnMessageFired?.Invoke(new MessageArgs { Message = str, Type = type });
         }
