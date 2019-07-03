@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
         fw:AcrylicWindow.ExtendViewIntoTitleBar="True"
-        Title="News Dump" Height="500" Width="450">
+        Title="News Dump" Height="500" Width="550">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="400"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <StackPanel  Background="#30000000">
@@ -20,7 +20,8 @@
                 </TextBlock>
                 
             </Grid>
-            
+
+            <TextBlock FontSize="13" x:Name="console" TextWrapping="Wrap" HorizontalAlignment="Left" />
 
         </StackPanel>
 
