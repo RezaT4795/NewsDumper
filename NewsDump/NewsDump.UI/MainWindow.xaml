@@ -25,7 +25,7 @@
                 
                 <TextBox Margin="10,50,0,0" FontSize="13" x:Name="console" Background="Transparent"
          BorderThickness="0" TextWrapping="Wrap" HorizontalAlignment="Stretch"
-                         VerticalAlignment="Stretch"
+                         VerticalAlignment="Stretch" Foreground="{DynamicResource SystemBaseHighColorBrush}"
                          HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" />
                 
 
@@ -49,19 +49,24 @@
                             <Button x:Name="clrconsole" HorizontalAlignment="Right" Content="Clear console" Margin="0,10" Width="100" Height="50" 
                             Style="{StaticResource ButtonRevealStyle}" Background="Transparent"
                                 Click="Clrconsole_Click"
+                                    Foreground="{DynamicResource SystemBaseHighColorBrush}"
                                 />
 
                             <Button x:Name="rundumper" HorizontalAlignment="Right" Content="Run dumper" Margin="0,10" Width="100" Height="50" 
                             Style="{StaticResource ButtonRevealStyle}" Background="Transparent"
+                                    Foreground="{DynamicResource SystemBaseHighColorBrush}"
                                 Click="Rundumper_Click"/>
 
 
-                            <Button x:Name="exportall" HorizontalAlignment="Right" Content="Export all" Margin="0,10" Width="100" Height="50" 
+                            <Button  x:Name="exportall" HorizontalAlignment="Right" Content="Export all" Margin="0,10" Width="100" Height="50" 
                             Style="{StaticResource ButtonRevealStyle}" Background="Transparent"
+                                     Foreground="{DynamicResource SystemBaseHighColorBrush}"
                                 Click="Exportall_Click"/>
 
                             <Button x:Name="exportthis" HorizontalAlignment="Right" Content="Export this" Margin="0,10" Width="100" Height="50" 
-                            Style="{StaticResource ButtonRevealStyle}" Background="Transparent" Click="Exportthis_Click"/>
+                            Style="{StaticResource ButtonRevealStyle}" 
+                                    Foreground="{DynamicResource SystemBaseHighColorBrush}"
+                                    Background="Transparent" Click="Exportthis_Click"/>
                             <StackPanel>
                                 <Grid >
                                     <TextBlock HorizontalAlignment="Left" Text="Skip" />
