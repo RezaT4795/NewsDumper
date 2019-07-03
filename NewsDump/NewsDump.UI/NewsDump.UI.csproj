@@ -10,4 +10,8 @@
     <PackageReference Include="FluentWPF.Core.Alpha" Version="1.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NewsDump.Lib\NewsDump.Lib.csproj" />
+  </ItemGroup>
+
 </Project>

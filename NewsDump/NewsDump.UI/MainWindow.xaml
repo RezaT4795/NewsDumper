@@ -10,22 +10,24 @@
         Title="News Dump" Height="500" Width="550">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="160"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel  Background="#30000000">
+        <StackPanel Grid.Column="1" Background="#30000000">
             <Grid Margin="10"  VerticalAlignment="Center" >
                 <TextBlock HorizontalAlignment="Left">
                         <Run Text="Console" FontSize="24"/>
                 </TextBlock>
                 
             </Grid>
-
-            <TextBlock FontSize="13" x:Name="console" TextWrapping="Wrap" HorizontalAlignment="Left" />
+            <ScrollViewer x:Name="scroll" VerticalScrollBarVisibility="Auto">
+                <TextBlock FontSize="13" x:Name="console" TextWrapping="Wrap" HorizontalAlignment="Left" />
+            </ScrollViewer>
+            
 
         </StackPanel>
 
-        <fw:DropShadowPanel Grid.Column="1" ShadowMode="Outer" Background="#66FFFFFF">
+        <fw:DropShadowPanel Grid.Column="0" ShadowMode="Outer" Background="#66FFFFFF">
             <Grid fw:PointerTracker.Enabled="True" Background="#01FFFFFF">
                 <StackPanel>
                     <!--<Grid Grid.Column="1" >-->
@@ -40,17 +42,21 @@
 
                         
                         <Button x:Name="clrconsole" HorizontalAlignment="Right" Content="Clear console" Margin="0,10" Width="100" Height="50" 
-                            Style="{StaticResource ButtonRevealStyle}" Background="Transparent"/>
+                            Style="{StaticResource ButtonRevealStyle}" Background="Transparent"
+                                Click="Clrconsole_Click"
+                                />
                         
                         <Button x:Name="rundumper" HorizontalAlignment="Right" Content="Run dumper" Margin="0,10" Width="100" Height="50" 
-                            Style="{StaticResource ButtonRevealStyle}" Background="Transparent"/>
+                            Style="{StaticResource ButtonRevealStyle}" Background="Transparent"
+                                Click="Rundumper_Click"/>
 
 
                         <Button x:Name="exportall" HorizontalAlignment="Right" Content="Export all" Margin="0,10" Width="100" Height="50" 
-                            Style="{StaticResource ButtonRevealStyle}" Background="Transparent"/>
+                            Style="{StaticResource ButtonRevealStyle}" Background="Transparent"
+                                Click="Exportall_Click"/>
 
                         <Button x:Name="exportthis" HorizontalAlignment="Right" Content="Export this" Margin="0,10" Width="100" Height="50" 
-                            Style="{StaticResource ButtonRevealStyle}" Background="Transparent"/>
+                            Style="{StaticResource ButtonRevealStyle}" Background="Transparent" Click="Exportthis_Click"/>
                         <StackPanel>
                             <Grid >
                                 <TextBlock HorizontalAlignment="Left" Text="Skip" />
