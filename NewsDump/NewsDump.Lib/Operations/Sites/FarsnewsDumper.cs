@@ -20,10 +20,10 @@ namespace NewsDump.Lib.Operations.Sites
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(html);
 
-            var printButtton1= htmlDoc.DocumentNode.GetElementsWithClass("div", "print-surl d-flex align-items-center justify-content-center")?.FirstOrDefault();
+            var printButtton1= htmlDoc.DocumentNode.GetElementsWithClass("div", "print-surl", "d-flex", "align-items-center", "justify-content-center")?.FirstOrDefault();
             if (printButtton1 != null)
             {
-                var printButtton2= printButtton1.GetElementsWithClass("div", "print ml-2")?.FirstOrDefault();
+                var printButtton2= printButtton1.GetElementsWithClass("div", "print","ml-2")?.FirstOrDefault();
                 var printValue = printButtton2.SelectSingleNode("//a[contains(@href, '/printnews/')]").Attributes["href"].Value;
 
                 var printUri = $"http://{baseUri.Host}{printValue}";
@@ -38,11 +38,7 @@ namespace NewsDump.Lib.Operations.Sites
 
                 if (text.IsEmpty())
                 {
-                    //Validate for trivia character
-                    if (!body.InnerText.HtmlDecode().StartsWith("{$"))
-                    {
-                        text = body.InnerText.HtmlDecode().Trim();
-                    }
+                    text = body.InnerText.HtmlDecode().Trim();
                 }
             }
             return new News { NewsBody=text };
