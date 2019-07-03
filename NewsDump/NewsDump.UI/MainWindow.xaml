@@ -1,12 +1,71 @@
-﻿<Window x:Class="NewsDump.UI.MainWindow"
+﻿<fw:AcrylicWindow x:Class="NewsDump.UI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NewsDump.UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+        fw:AcrylicWindow.ExtendViewIntoTitleBar="True"
+        Title="News Dump" Height="500" Width="450">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel  Background="#30000000">
+            <Grid Margin="10"  VerticalAlignment="Center" >
+                <TextBlock HorizontalAlignment="Left">
+                        <Run Text="Console" FontSize="24"/>
+                </TextBlock>
+                
+            </Grid>
+            
 
+        </StackPanel>
+
+        <fw:DropShadowPanel Grid.Column="1" ShadowMode="Outer" Background="#66FFFFFF">
+            <Grid fw:PointerTracker.Enabled="True" Background="#01FFFFFF">
+                <StackPanel>
+                    <!--<Grid Grid.Column="1" >-->
+                    <StackPanel Margin="10" VerticalAlignment="Center" >
+                        <TextBlock>
+                        <Run Text="Commands" FontSize="24"/>
+                        </TextBlock>
+                    </StackPanel>
+
+                    <StackPanel 
+                        HorizontalAlignment="Left" Margin="25" VerticalAlignment="Bottom">
+
+                        
+                        <Button x:Name="clrconsole" HorizontalAlignment="Right" Content="Clear console" Margin="0,10" Width="100" Height="50" 
+                            Style="{StaticResource ButtonRevealStyle}" Background="Transparent"/>
+                        
+                        <Button x:Name="rundumper" HorizontalAlignment="Right" Content="Run dumper" Margin="0,10" Width="100" Height="50" 
+                            Style="{StaticResource ButtonRevealStyle}" Background="Transparent"/>
+
+
+                        <Button x:Name="exportall" HorizontalAlignment="Right" Content="Export all" Margin="0,10" Width="100" Height="50" 
+                            Style="{StaticResource ButtonRevealStyle}" Background="Transparent"/>
+
+                        <Button x:Name="exportthis" HorizontalAlignment="Right" Content="Export this" Margin="0,10" Width="100" Height="50" 
+                            Style="{StaticResource ButtonRevealStyle}" Background="Transparent"/>
+                        <StackPanel>
+                            <Grid >
+                                <TextBlock HorizontalAlignment="Left" Text="Skip" />
+                                <TextBox x:Name="skip" HorizontalAlignment="Right" Width="40" Text="0" />
+                            </Grid>
+
+                            <Grid >
+                                <TextBlock HorizontalAlignment="Left" Text="Take" />
+                                <TextBox x:Name="take" HorizontalAlignment="Right" Width="40" Text="100" />
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+                
+
+            </Grid>
+        </fw:DropShadowPanel>
     </Grid>
-</Window>
+</fw:AcrylicWindow>
