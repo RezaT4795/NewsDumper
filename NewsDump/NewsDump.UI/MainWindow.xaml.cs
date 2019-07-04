@@ -34,10 +34,7 @@ namespace NewsDump.UI
         {
             InitializeComponent();
 
-            using (var context = new Lib.Data.Context())
-            {
-                context.Database.Migrate();
-            }
+            Repository.PerformMigration();
 
             EventBus.OnMessageFired += EventBus_OnMessageFired;
         }
@@ -116,6 +113,11 @@ namespace NewsDump.UI
             {
                 EventBus.Notify("Dates are empty", "Alert");
             }
+        }
+
+        private void Resetdb_Click(object sender, RoutedEventArgs e)
+        {
+            Repository.ResetDb();
         }
     }
 }

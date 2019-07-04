@@ -13,16 +13,13 @@ namespace NewsDump
     {
         static int Main(string[] args)
         {
-            using (var context = new Context())
-            {
-                context.Database.Migrate();
-            }
+            Repository.PerformMigration();
 
             //Register for event
             EventBus.OnMessageFired += EventBus_OnMessageFired;
 
             var commands = ConsoleCommandDispatcher.FindCommandsInSameAssemblyAs(typeof(Program));
-            var result =  ConsoleCommandDispatcher.DispatchCommand(commands, args, Console.Out);
+            var result = ConsoleCommandDispatcher.DispatchCommand(commands, args, Console.Out);
 
 #if DEBUG
             WitForExit();

@@ -18,7 +18,7 @@
             <ProgressBar x:Name="prog" Background="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="4" />
             <Grid Margin="10,10"  VerticalAlignment="Top" >
                 <TextBlock HorizontalAlignment="Left">
-                        <Run Text="Console" FontSize="24"/>
+                        <Run Text="Console" FontSize="22"/>
                 </TextBlock>
 
             </Grid>
@@ -35,12 +35,7 @@
         <fw:DropShadowPanel Grid.Column="0" ShadowMode="Outer" Background="#66FFFFFF">
             <Grid fw:PointerTracker.Enabled="True" Background="#01FFFFFF">
                 <StackPanel x:Name="commandbar">
-                    <!--<Grid Grid.Column="1" >-->
-                    <StackPanel Margin="10" VerticalAlignment="Center" >
-                        <TextBlock>
-                        <Run Text="Commands" FontSize="24"/>
-                        </TextBlock>
-                    </StackPanel>
+                    <TextBlock Margin="10,10,10,0" Text="Commands" FontSize="22" />
 
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <StackPanel  HorizontalAlignment="Center">
@@ -96,6 +91,10 @@
                                     <TextBox x:Name="take" HorizontalAlignment="Right" Width="50" Text="100" />
                                 </Grid>
                             </StackPanel>
+                            <Button x:Name="resetdb" HorizontalAlignment="Center" Content="Reset database" Margin="0,20" Width="100" Height="30" 
+                            Style="{StaticResource ButtonRevealStyle}" Background="Transparent"
+                                    Foreground="#F44336"
+                                Click="Resetdb_Click"/>
                         </StackPanel>
                     </ScrollViewer>
 

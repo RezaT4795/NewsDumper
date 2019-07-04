@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NewsDump.Lib.Util;
+using Olive;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -11,6 +14,33 @@ namespace NewsDump.Lib.Data
     public static class Repository
     {
         public static Repository<T> Of<T>() where T : BaseModel => new Repository<T>();
+        public static void PerformMigration()
+        {
+            using (var context = new Context())
+            {
+                context.Database.Migrate();
+            }
+        }
+
+        public static void ResetDb()
+        {
+            try
+            {
+                var appDomain = AppDomain.CurrentDomain;
+                var basePath = appDomain.RelativeSearchPath ?? appDomain.BaseDirectory;
+                Path.Combine(basePath, "dumperdb.sqlite").AsFile().Delete();
+
+
+                PerformMigration();
+                EventBus.Notify("Database reset successful, DB is mow in clean slate", "info");
+            }
+            catch (Exception ex)
+            {
+
+                EventBus.Notify(ex.Message, "error");
+            }
+
+        }
     }
 
     public class Repository<TObject> where TObject : BaseModel
@@ -92,7 +122,7 @@ namespace NewsDump.Lib.Data
             await _context.SaveChangesAsync();
             return t;
         }
-        
+
 
         public TObject Update(TObject updated)
         {
@@ -155,6 +185,6 @@ namespace NewsDump.Lib.Data
         {
             return await _context.Set<TObject>().CountAsync();
         }
-       
+
     }
 }
