@@ -17,7 +17,14 @@ namespace NewsDump.Lib.Operations
 
         public static List<News> Where(Expression<Func<News, bool>> exp) => _repo.FindAll(exp).ToList();
 
-        public static void SaveNewsInDatabase(this News news) => _repo.Add(news);
+        public static void SaveNewsInDatabase(this News news)
+        {
+            if (!_repo.Exists(x => StringCompare.IsPotentiallySimilar(x.NewsBody, news.NewsBody)))
+            {
+                _repo.Add(news);
+            }
+
+        }
         public static bool NewsExists(this SyndicationItem feed) => _repo.Exists(
             x => x.Link.ToLower() == feed.GetUri().ToString().ToLower()
             );
