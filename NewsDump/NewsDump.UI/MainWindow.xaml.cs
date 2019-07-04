@@ -45,6 +45,7 @@ namespace NewsDump.UI
             {
                 console.Text += Environment.NewLine;
                 console.Text += message;
+                console.Text += Environment.NewLine;
                 console.ScrollToEnd();
             });
 

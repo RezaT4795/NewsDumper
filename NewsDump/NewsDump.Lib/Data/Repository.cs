@@ -32,7 +32,7 @@ namespace NewsDump.Lib.Data
 
 
                 PerformMigration();
-                EventBus.Notify("Database reset successful, DB is mow in clean slate", "info");
+                EventBus.Notify("Database reset successful, DB is now in clean slate", "info");
             }
             catch (Exception ex)
             {

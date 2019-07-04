@@ -1,6 +1,7 @@
 ﻿using NewsDump.Lib.Data;
 using NewsDump.Lib.Model;
 using NewsDump.Lib.Util;
+using Olive;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,8 @@ namespace NewsDump.Lib.Operations
 
         public static void SaveNewsInDatabase(this News news)
         {
-            if (!_repo.Exists(x => StringCompare.IsPotentiallySimilar(x.NewsBody, news.NewsBody)))
+            var all = GetAllNews();
+            if (all.AsParallel().None(x => StringCompare.IsPotentiallySimilar(x.NewsBody, news.NewsBody)))
             {
                 _repo.Add(news);
             }

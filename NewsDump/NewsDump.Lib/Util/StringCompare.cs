@@ -12,18 +12,22 @@ namespace NewsDump.Lib.Util
         {
             var percentage = GetPercentageOfSimilarity(first, second);
             var isSimilar = percentage > 80;
-#if DEBUG
             if (isSimilar)
             {
                 EventBus.Notify($"Similarity {percentage}%", "info");
             }
-#endif
             return isSimilar;
         }
         static int GetPercentageOfSimilarity(string first, string second)
         {
+
             var firstWords = first.ExtractWords().ToList();
             var secondWords = second.ExtractWords().ToList();
+
+            if (firstWords.Count < 80 || secondWords.Count < 80)
+            {
+                return 0;
+            }
 
             var firstInSecond = firstWords.Intersect(secondWords).ToList();
 
