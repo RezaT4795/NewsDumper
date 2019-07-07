@@ -1,6 +1,7 @@
 ﻿using NewsDump.Lib.Data;
 using NewsDump.Lib.Model;
 using NewsDump.Lib.Util;
+using NewsDump.UI.Utils;
 using Olive;
 using System;
 using System.Collections.Generic;
@@ -20,11 +21,19 @@ namespace NewsDump.Lib.Operations
 
         public static void SaveNewsInDatabase(this News news)
         {
-            var all = GetAllNews();
-            if (all.AsParallel().None(x => StringCompare.IsPotentiallySimilar(x.NewsBody, news.NewsBody)))
+            if (Conf.Get<bool>("Hazf"))
+            {
+                var all = GetAllNews();
+                if (all.AsParallel().None(x => StringCompare.IsPotentiallySimilar(x.NewsBody, news.NewsBody)))
+                {
+                    _repo.Add(news);
+                }
+            }
+            else
             {
                 _repo.Add(news);
             }
+
 
         }
         public static bool NewsExists(this SyndicationItem feed) => _repo.Exists(

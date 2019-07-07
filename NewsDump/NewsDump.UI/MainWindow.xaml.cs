@@ -2,6 +2,7 @@
 using NewsDump.Lib.Data;
 using NewsDump.Lib.Operations;
 using NewsDump.Lib.Util;
+using NewsDump.UI.Utils;
 using Olive;
 using System;
 using System.Collections.Generic;
@@ -39,6 +40,11 @@ namespace NewsDump.UI
             EventBus.OnMessageFired += EventBus_OnMessageFired;
         }
 
+        private void AcrylicWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            check.IsChecked = Conf.Get<bool>("Hazf");
+        }
+
         private void EventBus_OnMessageFired(MessageArgs message)
         {
             Dispatcher.Invoke(() =>
@@ -74,6 +80,7 @@ namespace NewsDump.UI
 
 
         }
+
 
 
 
@@ -134,5 +141,12 @@ namespace NewsDump.UI
         {
             Repository.ResetDb();
         }
+
+        private void Check_Checked(object sender, RoutedEventArgs e)
+        {
+            Conf.Set("Hazf", check.IsChecked.ToString().ToLower());
+        }
+
+
     }
 }
