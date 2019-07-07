@@ -9,7 +9,7 @@
         xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
         fw:AcrylicWindow.ExtendViewIntoTitleBar="True"
 
-        Title="News Dump" Height="500" Width="550">
+        Title="News Dump" Height="550" Width="550">
 
     <Grid Grid.Row="1">
         <Grid.ColumnDefinitions>
@@ -69,12 +69,28 @@
                             <StackPanel MinWidth="130">
                                 <Grid >
                                     <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" Text="از" />
-                                    <persianDateControls:PersianDatePicker HorizontalAlignment="Left" Name="mindate" VerticalAlignment="Center"  />
+
+                                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <persianDateControls:PersianDatePicker  Name="mindate"  />
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBox x:Name="minhr"  Text="12" />
+                                            <TextBlock Text=":" />
+                                            <TextBox  x:Name="minmin" Text="00" />
+                                        </StackPanel>
+                                    </StackPanel>
                                 </Grid>
 
                                 <Grid >
                                     <TextBlock HorizontalAlignment="Right" Text="تا" VerticalAlignment="Center" />
-                                    <persianDateControls:PersianDatePicker HorizontalAlignment="Left" Name="maxdate" VerticalAlignment="Center"  />
+
+                                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <persianDateControls:PersianDatePicker  Name="maxdate"  />
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBox x:Name="maxhr"  Text="12" />
+                                            <TextBlock Text=":" />
+                                            <TextBox  x:Name="maxmin" Text="00" />
+                                        </StackPanel>
+                                    </StackPanel>
                                 </Grid>
                             </StackPanel>
 

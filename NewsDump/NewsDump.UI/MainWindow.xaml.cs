@@ -108,13 +108,19 @@ namespace NewsDump.UI
         {
             if (mindate.SelectedDate != null && maxdate.SelectedDate != null)
             {
+                var firstdate = mindate.SelectedDate.ToDateTime();
+                var seconddate = maxdate.SelectedDate.ToDateTime();
+
+                var min = new DateTime(firstdate.Year, firstdate.Month, firstdate.Day, minhr.Text.To<int>(), minmin.Text.To<int>(), 0);
+                var max = new DateTime(seconddate.Year, seconddate.Month, seconddate.Day, maxhr.Text.To<int>(), maxmin.Text.To<int>(), 0);
+
                 using (var fbd = new FolderBrowserDialog())
                 {
                     var result = fbd.ShowDialog();
 
                     if (fbd.SelectedPath.HasValue())
                     {
-                        ExportHandler.Export(fbd.SelectedPath, mindate.SelectedDate.ToDateTime(), maxdate.SelectedDate.ToDateTime());
+                        ExportHandler.Export(fbd.SelectedPath, min, max);
                     }
                 }
             }
