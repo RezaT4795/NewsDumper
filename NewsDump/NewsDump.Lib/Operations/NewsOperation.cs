@@ -21,7 +21,8 @@ namespace NewsDump.Lib.Operations
 
         public static void SaveNewsInDatabase(this News news)
         {
-            if (Conf.Get<bool>("Hazf"))
+            var conf = Conf.Get<bool>("Hazf");
+            if (conf)
             {
                 var all = GetAllNews();
                 if (all.AsParallel().None(x => StringCompare.IsPotentiallySimilar(x.NewsBody, news.NewsBody)))

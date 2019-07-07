@@ -42,6 +42,7 @@ namespace NewsDump.UI
 
         private void AcrylicWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            var a = Conf.GetAll();
             check.IsChecked = Conf.Get<bool>("Hazf");
         }
 
@@ -147,6 +148,9 @@ namespace NewsDump.UI
             Conf.Set("Hazf", check.IsChecked.ToString().ToLower());
         }
 
-
+        private void Check_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Conf.Set("Hazf", check.IsChecked.ToString().ToLower());
+        }
     }
 }

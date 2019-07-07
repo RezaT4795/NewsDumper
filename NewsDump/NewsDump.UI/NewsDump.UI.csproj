@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="App.config" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentWPF.Core.Alpha" Version="1.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0-preview6.19304.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.0.0-preview6.19304.10">
@@ -20,6 +24,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NewsDump.Lib\NewsDump.Lib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

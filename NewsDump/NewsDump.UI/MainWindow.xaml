@@ -49,7 +49,7 @@
                                 Click="Clrconsole_Click" 
                                     Foreground="{DynamicResource SystemBaseHighColorBrush}"
                                 />
-                            <CheckBox x:Name="check" Checked="Check_Checked" Content="حذف مشترکات" />
+                            <CheckBox x:Name="check" Unchecked="Check_Unchecked" Checked="Check_Checked" Content="حذف مشترکات" />
 
                             <Button x:Name="rundumper" HorizontalAlignment="Center" Content="اجرا" Margin="0,5" Width="120" Height="50" 
                             Style="{StaticResource ButtonRevealStyle}" Background="Transparent"
