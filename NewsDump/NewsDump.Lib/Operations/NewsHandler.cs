@@ -1,5 +1,6 @@
 ﻿using NewsDump.Lib.Operations.Sites;
 using NewsDump.Lib.Operations.Sites.Interface;
+using NewsDump.Lib.Util;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -13,6 +14,7 @@ namespace NewsDump.Lib.Operations
 
             services.ForEach(x => x.RunAndSave());
 
+            EventBus.Notify("عملیات با موفقیت به پایان رسید", "DoneOperation");
         }
         public static async Task RunAsync() => await Task.Run(Run);
         private static List<IDumper> RegisterServices()

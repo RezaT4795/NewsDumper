@@ -33,6 +33,8 @@ namespace NewsDump.Lib.Data
 
                 PerformMigration();
                 EventBus.Notify("Database reset successful, DB is now in clean slate", "info");
+                EventBus.Notify("پایگاه داده پاکسازی شد", "DoneOperation");
+
             }
             catch (Exception ex)
             {

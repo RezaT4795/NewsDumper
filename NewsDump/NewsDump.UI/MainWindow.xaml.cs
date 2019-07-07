@@ -43,10 +43,18 @@ namespace NewsDump.UI
         {
             Dispatcher.Invoke(() =>
             {
-                console.Text += Environment.NewLine;
-                console.Text += message;
-                console.Text += Environment.NewLine;
-                console.ScrollToEnd();
+                if (message.Type == "DoneOperation")
+                {
+                    System.Windows.MessageBox.Show(message.Message, "اطلاعات");
+                }
+                else
+                {
+                    console.Text += Environment.NewLine;
+                    console.Text += message;
+                    console.Text += Environment.NewLine;
+                    console.ScrollToEnd();
+                }
+
             });
 
         }

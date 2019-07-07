@@ -42,10 +42,12 @@ namespace NewsDump.Lib.Operations
 
                 pck.SaveAs(expath.AsFile());
                 EventBus.Notify($"{customerObjects.Count()} rows saved as {expath}", "info");
+                EventBus.Notify("ذخیره شد!", "DoneOperation");
             }
             else
             {
                 EventBus.Notify("There is nothing to save, skipping", "info");
+                EventBus.Notify("چیزی برای ذخیره وجود ندارد", "DoneOperation");
             }
 
         }
