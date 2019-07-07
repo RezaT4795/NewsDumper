@@ -98,7 +98,7 @@ namespace NewsDump.UI
 
         private void Exportdue_Click(object sender, RoutedEventArgs e)
         {
-            if (mindate.SelectedDate.HasValue && maxdate.SelectedDate.HasValue)
+            if (mindate.SelectedDate != null && maxdate.SelectedDate != null)
             {
                 using (var fbd = new FolderBrowserDialog())
                 {
@@ -106,7 +106,7 @@ namespace NewsDump.UI
 
                     if (fbd.SelectedPath.HasValue())
                     {
-                        ExportHandler.Export(fbd.SelectedPath, mindate.SelectedDate, maxdate.SelectedDate);
+                        ExportHandler.Export(fbd.SelectedPath, mindate.SelectedDate.ToDateTime(), maxdate.SelectedDate.ToDateTime());
                     }
                 }
             }

@@ -14,6 +14,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.0.0-preview6.19304.10" />
+    <PackageReference Include="Mohsen.PersianDateControls" Version="1.0.1" />
     <PackageReference Include="Olive" Version="2.1.165" />
   </ItemGroup>
 

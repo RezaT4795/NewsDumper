@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NewsDump.UI"
         mc:Ignorable="d"
+        xmlns:persianDateControls="clr-namespace:Mohsen.PersianDateControls;assembly=Mohsen.PersianDateControls"
         xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
         fw:AcrylicWindow.ExtendViewIntoTitleBar="True"
+
         Title="News Dump" Height="500" Width="550">
 
     <Grid Grid.Row="1">
@@ -18,7 +20,7 @@
             <ProgressBar x:Name="prog" Background="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="4" />
             <Grid Margin="10,10"  VerticalAlignment="Top" >
                 <TextBlock HorizontalAlignment="Left">
-                        <Run Text="Console" FontSize="22"/>
+                        <Run Text="اطلاعات" FontSize="22"/>
                 </TextBlock>
 
             </Grid>
@@ -35,63 +37,63 @@
         <fw:DropShadowPanel Grid.Column="0" ShadowMode="Outer" Background="#66FFFFFF">
             <Grid fw:PointerTracker.Enabled="True" Background="#01FFFFFF">
                 <StackPanel x:Name="commandbar">
-                    <TextBlock Margin="10,10,10,0" Text="Commands" FontSize="22" />
+                    <TextBlock Margin="10,10,10,0" Text="دستورات" FontSize="22" />
 
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <StackPanel  HorizontalAlignment="Center">
 
 
-                            <Button x:Name="clrconsole" HorizontalAlignment="Center" Content="Clear console" Margin="0,5" Width="100" Height="50" 
+                            <Button x:Name="clrconsole" HorizontalAlignment="Center" Content="پاک کردن اطلاعات" Margin="0,5" Width="120" Height="50" 
                             Style="{StaticResource ButtonRevealStyle}" Background="Transparent"
                                 Click="Clrconsole_Click" 
                                     Foreground="{DynamicResource SystemBaseHighColorBrush}"
                                 />
 
-                            <Button x:Name="rundumper" HorizontalAlignment="Center" Content="Run dumper" Margin="0,5" Width="100" Height="50" 
+                            <Button x:Name="rundumper" HorizontalAlignment="Center" Content="اجرا" Margin="0,5" Width="120" Height="50" 
                             Style="{StaticResource ButtonRevealStyle}" Background="Transparent"
                                     Foreground="{DynamicResource SystemBaseHighColorBrush}"
                                 Click="Rundumper_Click"/>
 
 
-                            <Button  x:Name="exportall" HorizontalAlignment="Center" Content="Export all" Margin="0,5" Width="100" Height="50" 
+                            <Button  x:Name="exportall" HorizontalAlignment="Center" Content="خروجی همه" Margin="0,5" Width="120" Height="50" 
                             Style="{StaticResource ButtonRevealStyle}" Background="Transparent"
                                      Foreground="{DynamicResource SystemBaseHighColorBrush}"
                                 Click="Exportall_Click"/>
 
                             
 
-                            <Button x:Name="exportdue" HorizontalAlignment="Center" Content="Export due" Margin="0,5" Width="100" Height="50" 
+                            <Button x:Name="exportdue" HorizontalAlignment="Center" Content="خروجی بر اساس تاریخ" Margin="0,5" Width="120" Height="50" 
                             Style="{StaticResource ButtonRevealStyle}" 
                                     Foreground="{DynamicResource SystemBaseHighColorBrush}"
                                     Background="Transparent" Click="Exportdue_Click"/>
                             <StackPanel MinWidth="130">
                                 <Grid >
-                                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Min" />
-                                    <DatePicker HorizontalAlignment="Right" Name="mindate" VerticalAlignment="Center"  />
+                                    <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" Text="از" />
+                                    <persianDateControls:PersianDatePicker HorizontalAlignment="Left" Name="mindate" VerticalAlignment="Center"  />
                                 </Grid>
 
                                 <Grid >
-                                    <TextBlock HorizontalAlignment="Left" Text="Max" VerticalAlignment="Center" />
-                                    <DatePicker HorizontalAlignment="Right" Name="maxdate" VerticalAlignment="Center"  />
+                                    <TextBlock HorizontalAlignment="Right" Text="تا" VerticalAlignment="Center" />
+                                    <persianDateControls:PersianDatePicker HorizontalAlignment="Left" Name="maxdate" VerticalAlignment="Center"  />
                                 </Grid>
                             </StackPanel>
 
-                            <Button x:Name="exportthis" HorizontalAlignment="Center" Content="Export pagination" Margin="0,5" Width="100" Height="50" 
+                            <Button x:Name="exportthis" HorizontalAlignment="Center" Content="خروجی بر اساس تعداد" Margin="0,5" Width="120" Height="50" 
                             Style="{StaticResource ButtonRevealStyle}" 
                                     Foreground="{DynamicResource SystemBaseHighColorBrush}"
                                     Background="Transparent" Click="Exportthis_Click"/>
                             <StackPanel HorizontalAlignment="Center" MinWidth="130">
                                 <Grid >
-                                    <TextBlock HorizontalAlignment="Left" Text="Skip" />
-                                    <TextBox x:Name="skip" HorizontalAlignment="Right" Width="50" Text="0" />
+                                    <TextBlock HorizontalAlignment="Right" Text="از" />
+                                    <TextBox x:Name="skip" HorizontalAlignment="Left" Width="50" Text="0" />
                                 </Grid>
 
                                 <Grid >
-                                    <TextBlock HorizontalAlignment="Left" Text="Take" />
-                                    <TextBox x:Name="take" HorizontalAlignment="Right" Width="50" Text="100" />
+                                    <TextBlock HorizontalAlignment="Right" Text="به تعداد" />
+                                    <TextBox x:Name="take" HorizontalAlignment="Left" Width="50" Text="100" />
                                 </Grid>
                             </StackPanel>
-                            <Button x:Name="resetdb" HorizontalAlignment="Center" Content="Reset database" Margin="0,20" Width="100" Height="30" 
+                            <Button x:Name="resetdb" HorizontalAlignment="Center" Content="پاک کردن پایگاه داده" Margin="0,20" Width="120" Height="30" 
                             Style="{StaticResource ButtonRevealStyle}" Background="Transparent"
                                     Foreground="#F44336"
                                 Click="Resetdb_Click"/>
