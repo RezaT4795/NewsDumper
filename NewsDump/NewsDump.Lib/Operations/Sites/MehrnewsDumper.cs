@@ -94,6 +94,7 @@ namespace NewsDump.Lib.Operations.Sites
                 {
 
                     EventBus.Notify("Retrying...", "Info");
+                    EventBus.Log(ex.Message, "retrying in mehrnews");
                 }
 
 

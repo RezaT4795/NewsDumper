@@ -1,5 +1,4 @@
-﻿using NewsDump.Lib.Model;
-using NewsDump.Lib.Operations.Sites;
+﻿using NewsDump.Lib.Operations.Sites;
 using NewsDump.Lib.Operations.Sites.Interface;
 using NewsDump.Lib.Util;
 using System.Collections.Generic;
@@ -11,8 +10,6 @@ namespace NewsDump.Lib.Operations
     {
         public static void Run()
         {
-            News a = null;
-            a.Id = 2;
             var services = RegisterServices();
 
             services.ForEach(x => x.RunAndSave());
