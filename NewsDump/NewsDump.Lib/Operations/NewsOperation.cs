@@ -13,18 +13,18 @@ namespace NewsDump.Lib.Operations
 {
     internal static class NewsOperation
     {
-        static Repository<News> _repo = Repository.Of<News>();
 
-        public static List<News> GetAllNews() => _repo.GetAll().ToList();
 
-        public static List<News> Where(Expression<Func<News, bool>> exp) => _repo.FindAll(exp).ToList();
+        public static List<News> GetAllNews(Repository<News> _repo) => _repo.GetAll().ToList();
 
-        public static void SaveNewsInDatabase(this News news)
+        public static List<News> Where(Repository<News> _repo, Expression<Func<News, bool>> exp) => _repo.FindAll(exp).ToList();
+
+        public static void SaveNewsInDatabase(this News news, Repository<News> _repo)
         {
             var conf = Conf.Get<bool>("Hazf");
             if (conf)
             {
-                var all = GetAllNews();
+                var all = GetAllNews(_repo);
                 if (all.AsParallel().None(x => StringCompare.IsPotentiallySimilar(x.NewsBody, news.NewsBody)))
                 {
                     _repo.Add(news);
@@ -37,7 +37,7 @@ namespace NewsDump.Lib.Operations
 
 
         }
-        public static bool NewsExists(this SyndicationItem feed) => _repo.Exists(
+        public static bool NewsExists(this SyndicationItem feed, Repository<News> _repo) => _repo.Exists(
             x => x.Link.ToLower() == feed.GetUri().ToString().ToLower()
             );
     }

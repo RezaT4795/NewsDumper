@@ -17,7 +17,7 @@ namespace NewsDump.Lib.Operations.Sites.Interface
 
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.AutomaticDecompression = DecompressionMethods.GZip;
-
+            request.Timeout = 10000;
             using (var response = (HttpWebResponse)request.GetResponse())
             using (var stream = response.GetResponseStream())
             using (var reader = new StreamReader(stream))

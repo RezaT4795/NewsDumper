@@ -1,4 +1,5 @@
-﻿using NewsDump.Lib.Model;
+﻿using NewsDump.Lib.Data;
+using NewsDump.Lib.Model;
 using NewsDump.Lib.Util;
 using OfficeOpenXml;
 using OfficeOpenXml.Table;
@@ -15,17 +16,20 @@ namespace NewsDump.Lib.Operations
 
         public static void Export(string path)
         {
-            var news = NewsOperation.GetAllNews();
+            var repo = Repository.Of<News>();
+            var news = NewsOperation.GetAllNews(repo);
             WriteToExcel(news, path);
         }
         public static void Export(string path, int skip, int take)
         {
-            var news = NewsOperation.GetAllNews().Skip(skip).Take(take);
+            var repo = Repository.Of<News>();
+            var news = repo.Take(take, skip);
             WriteToExcel(news, path);
         }
         public static void Export(string path, DateTime? min, DateTime? max)
         {
-            var news = NewsOperation.Where(x => x.PublishDate < max && x.PublishDate > min);
+            var repo = Repository.Of<News>();
+            var news = NewsOperation.Where(repo, x => x.PublishDate < max && x.PublishDate > min);
             WriteToExcel(news, path);
         }
         static void WriteToExcel(IEnumerable<News> customerObjects, string path)

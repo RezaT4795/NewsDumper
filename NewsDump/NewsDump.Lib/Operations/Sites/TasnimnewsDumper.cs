@@ -1,4 +1,5 @@
 using HtmlAgilityPack;
+using NewsDump.Lib.Data;
 using NewsDump.Lib.Model;
 using NewsDump.Lib.Operations.Sites.Interface;
 using NewsDump.Lib.Util;
@@ -10,6 +11,7 @@ namespace NewsDump.Lib.Operations.Sites
 {
     class TasnimnewsDumper : DumperBase, IDumper
     {
+        Repository<News> _repo = Repository.Of<News>();
         public News ExtractNews(string html, Uri baseUri)
         {
             var text = "";
@@ -52,7 +54,7 @@ namespace NewsDump.Lib.Operations.Sites
                     }
 
                     //Run operation for new items only
-                    if (item.NewsExists())
+                    if (item.NewsExists(_repo))
                     {
                         continue;
                     }
@@ -75,7 +77,7 @@ namespace NewsDump.Lib.Operations.Sites
                     news.SiteName = "www.tasnimnews.com";
 
                     //Save in database
-                    news.SaveNewsInDatabase();
+                    news.SaveNewsInDatabase(_repo);
                 }
                 catch (Exception ex)
                 {
