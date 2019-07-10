@@ -2,6 +2,7 @@
 using NewsDump.Lib.Operations.Sites.Interface;
 using NewsDump.Lib.Util;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace NewsDump.Lib.Operations
@@ -16,7 +17,16 @@ namespace NewsDump.Lib.Operations
 
             EventBus.Notify("عملیات با موفقیت به پایان رسید", "DoneOperation");
         }
+        public static void RunParallel()
+        {
+            var services = RegisterServices();
+
+            services.AsParallel().ForAll(x => x.RunAndSave());
+
+            EventBus.Notify("عملیات با موفقیت به پایان رسید", "DoneOperation");
+        }
         public static async Task RunAsync() => await Task.Run(Run);
+        public static async Task RunParallelAsync() => await Task.Run(RunParallel);
         private static List<IDumper> RegisterServices()
         {
             var serviceList = new List<IDumper>();

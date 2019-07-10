@@ -10,7 +10,7 @@
         fw:AcrylicWindow.ExtendViewIntoTitleBar="True"
 
                   Loaded="AcrylicWindow_Loaded" 
-        Title="News Dump" Height="550" Width="550">
+        Title="News Dump" Height="620" Width="550">
 
     <Grid Grid.Row="1">
         <Grid.ColumnDefinitions>
@@ -56,13 +56,17 @@
                                     Foreground="{DynamicResource SystemBaseHighColorBrush}"
                                 Click="Rundumper_Click"/>
 
+                            <Button x:Name="runparadumper" HorizontalAlignment="Center" Content="اجرا مولتی تسک" Margin="0,5" Width="120" Height="50" 
+                            Style="{StaticResource ButtonRevealStyle}" Background="Transparent"
+                                    Foreground="{DynamicResource SystemBaseHighColorBrush}"
+                                Click="Runparadumper_Click"/>
 
                             <Button  x:Name="exportall" HorizontalAlignment="Center" Content="خروجی همه" Margin="0,5" Width="120" Height="50" 
                             Style="{StaticResource ButtonRevealStyle}" Background="Transparent"
                                      Foreground="{DynamicResource SystemBaseHighColorBrush}"
                                 Click="Exportall_Click"/>
 
-                            
+
 
                             <Button x:Name="exportdue" HorizontalAlignment="Center" Content="خروجی بر اساس تاریخ" Margin="0,5" Width="120" Height="50" 
                             Style="{StaticResource ButtonRevealStyle}" 

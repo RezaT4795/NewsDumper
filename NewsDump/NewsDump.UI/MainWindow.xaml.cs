@@ -161,5 +161,23 @@ namespace NewsDump.UI
         {
             Conf.Set("Hazf", check.IsChecked.ToString().ToLower());
         }
+
+        private async void Runparadumper_Click(object sender, RoutedEventArgs e)
+        {
+            commandbar.IsEnabled = false;
+            prog.IsIndeterminate = true;
+            try
+            {
+                await NewsHandler.RunParallelAsync();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show("Unhandled exception occurred: \n" + ex, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                EventBus.Log(ex.ToString(), "Error");
+            }
+
+            commandbar.IsEnabled = true;
+            prog.IsIndeterminate = false;
+        }
     }
 }
