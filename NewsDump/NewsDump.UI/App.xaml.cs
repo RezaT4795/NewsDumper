@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NewsDump.Lib.Util;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -21,7 +22,10 @@ namespace NewsDump.UI
 
         private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            MessageBox.Show("Unhandled exception occurred: \n" + e.Exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("Unhandled exception occurred: \n" + e.Exception, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            EventBus.Log(e.Exception.ToString(), "Error");
+
+            e.Handled = true;
         }
     }
 }

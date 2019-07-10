@@ -75,7 +75,16 @@ namespace NewsDump.UI
         {
             commandbar.IsEnabled = false;
             prog.IsIndeterminate = true;
-            await NewsHandler.RunAsync();
+            try
+            {
+                await NewsHandler.RunAsync();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show("Unhandled exception occurred: \n" + ex, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                EventBus.Log(ex.ToString(), "Error");
+            }
+
             commandbar.IsEnabled = true;
             prog.IsIndeterminate = false;
 
