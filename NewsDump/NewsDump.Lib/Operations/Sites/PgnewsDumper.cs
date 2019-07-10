@@ -91,7 +91,7 @@ namespace NewsDump.Lib.Operations.Sites
                 catch (Exception ex)
                 {
 
-                    EventBus.Notify(ex.Message, "Error");
+                    EventBus.Notify(ex.Message + "continuing...", "Info");
                 }
 
 
