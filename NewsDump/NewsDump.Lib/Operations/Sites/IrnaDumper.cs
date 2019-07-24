@@ -23,7 +23,18 @@ namespace NewsDump.Lib.Operations.Sites
             if (printButtton2 != null)
             {
                 var printValue = printButtton2.SelectSingleNode("//a[contains(@href, '/news/')]").Attributes["href"].Value;
-                var printHtml = Get(printValue);
+                var printHtml = "";
+                try
+                {
+                    var printUri = $"http://{baseUri.Host}{printValue}";
+                    printHtml = Get(printUri);
+                }
+                catch (Exception)
+                {
+                    printHtml = Get(printValue);
+                }
+
+
 
                 var printDoc = new HtmlDocument();
                 printDoc.LoadHtml(printHtml);

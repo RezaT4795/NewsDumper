@@ -21,7 +21,7 @@ namespace NewsDump.Lib.Util
             var basePath = appDomain.RelativeSearchPath ?? appDomain.BaseDirectory;
             var file = Path.Combine(basePath, "events.log").AsFile();
 
-            file.AppendAllText(Environment.NewLine + $"--{type}--" + Environment.NewLine + str);
+            file.AppendAllText(Environment.NewLine + $"--{type}--{DateTime.UtcNow}--" + Environment.NewLine + str);
 
         }
     }
