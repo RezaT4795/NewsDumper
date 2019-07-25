@@ -6,6 +6,7 @@ using NewsDump.UI.Utils;
 using Olive;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -39,6 +40,7 @@ namespace NewsDump.UI
             InitializeComponent();
 
             Repository.PerformMigration();
+            EventBus.TouchLogFile();
 
             EventBus.OnMessageFired += EventBus_OnMessageFired;
         }
@@ -76,6 +78,8 @@ namespace NewsDump.UI
 
         private async void Rundumper_Click(object sender, RoutedEventArgs e)
         {
+            resetdb.IsEnabled = false;
+            resetLog.IsEnabled = false;
             rundumper.IsEnabled = false;
             runTimer.IsEnabled = false;
             runparadumper.IsEnabled = false;
@@ -95,7 +99,8 @@ namespace NewsDump.UI
             runparadumper.IsEnabled = true;
             runTimer.IsEnabled = true;
             prog.IsIndeterminate = false;
-
+            resetdb.IsEnabled = true;
+            resetLog.IsEnabled = true;
 
         }
 
@@ -157,7 +162,12 @@ namespace NewsDump.UI
 
         private void Resetdb_Click(object sender, RoutedEventArgs e)
         {
-            Repository.ResetDb();
+            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("آیا اطمینان دارید؟", "پاک کردن دیتابیس", System.Windows.MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                Repository.ResetDb();
+            }
+
         }
 
         private void Check_Checked(object sender, RoutedEventArgs e)
@@ -174,6 +184,8 @@ namespace NewsDump.UI
 
         async Task RunDumper(bool silent = false)
         {
+            resetdb.IsEnabled = false;
+            resetLog.IsEnabled = false;
             rundumper.IsEnabled = false;
             runTimer.IsEnabled = false;
             runparadumper.IsEnabled = false;
@@ -185,7 +197,11 @@ namespace NewsDump.UI
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show("Unhandled exception occurred: \n" + ex, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                if (!silent)
+                {
+                    System.Windows.MessageBox.Show("Unhandled exception occurred: \n" + ex, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                EventBus.Log("Something went wrong, check out logs", "info");
                 EventBus.Log(ex.ToString(), "Error");
             }
             _isRuning = false;
@@ -193,6 +209,8 @@ namespace NewsDump.UI
             runparadumper.IsEnabled = true;
             runTimer.IsEnabled = true;
             prog.IsIndeterminate = false;
+            resetdb.IsEnabled = true;
+            resetLog.IsEnabled = true;
         }
 
         private void RunTimer_Click(object sender, RoutedEventArgs e)
@@ -244,6 +262,20 @@ namespace NewsDump.UI
             }
 
 
+        }
+
+        private void ResetLog_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("آیا اطمینان دارید؟", "پاک کردن لاگ", System.Windows.MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                EventBus.ClearLog();
+            }
+        }
+
+        private void OpenLog_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("explorer.exe", "/select, " + EventBus.GetLoggingPath());
         }
     }
 }

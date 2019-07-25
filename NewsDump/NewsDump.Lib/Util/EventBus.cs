@@ -17,9 +17,7 @@ namespace NewsDump.Lib.Util
 
         public static void Log(string str, string type)
         {
-            var appDomain = AppDomain.CurrentDomain;
-            var basePath = appDomain.RelativeSearchPath ?? appDomain.BaseDirectory;
-            var file = Path.Combine(basePath, "events.log").AsFile();
+            var file = GetLoggingPath().AsFile();
 
             try
             {
@@ -31,6 +29,25 @@ namespace NewsDump.Lib.Util
             }
 
 
+        }
+        public static void TouchLogFile()
+        {
+            var file = GetLoggingPath();
+            if (!File.Exists(file))
+            {
+                file.AsFile().AppendAllText("");
+            }
+        }
+        public static void ClearLog()
+        {
+            GetLoggingPath().AsFile().DeleteIfExists();
+            TouchLogFile();
+        }
+        public static string GetLoggingPath()
+        {
+            var appDomain = AppDomain.CurrentDomain;
+            var basePath = appDomain.RelativeSearchPath ?? appDomain.BaseDirectory;
+            return Path.Combine(basePath, "events.log");
         }
     }
     public class MessageArgs

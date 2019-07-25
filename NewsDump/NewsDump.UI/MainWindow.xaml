@@ -10,7 +10,7 @@
         fw:AcrylicWindow.ExtendViewIntoTitleBar="True"
 
                   Loaded="AcrylicWindow_Loaded" 
-        Title="News Dump" Height="680" Width="550">
+        Title="News Dump" Height="820" Width="550">
 
     <Grid Grid.Row="1">
         <Grid.ColumnDefinitions>
@@ -49,7 +49,7 @@
                                 Click="Clrconsole_Click" 
                                     Foreground="{DynamicResource SystemBaseHighColorBrush}"
                                 />
-                            <CheckBox x:Name="check" Unchecked="Check_Unchecked" Checked="Check_Checked" Content="حذف مشترکات" />
+                            <CheckBox Foreground="{DynamicResource SystemBaseHighColorBrush}" x:Name="check" Unchecked="Check_Unchecked" Checked="Check_Checked" Content="حذف مشترکات" />
 
                             <Button x:Name="runTimer" HorizontalAlignment="Center" Content="اجرای زمانبندی" Margin="0,5" Width="120" Height="50" 
                             Style="{StaticResource ButtonRevealStyle}" Background="Transparent"
@@ -82,11 +82,11 @@
                                     <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" Text="از" />
 
                                     <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
-                                        <persianDateControls:PersianDatePicker  Name="mindate"  />
+                                        <persianDateControls:PersianDatePicker Foreground="{DynamicResource SystemBaseHighColorBrush}" Name="mindate"  />
                                         <StackPanel Orientation="Horizontal">
                                             <TextBox x:Name="minhr"  Text="12" />
-                                            <TextBlock Text=":" />
-                                            <TextBox  x:Name="minmin" Text="00" />
+                                            <TextBlock Foreground="{DynamicResource SystemBaseHighColorBrush}" Text=":" />
+                                            <TextBox x:Name="minmin" Text="00" />
                                         </StackPanel>
                                     </StackPanel>
                                 </Grid>
@@ -95,11 +95,11 @@
                                     <TextBlock HorizontalAlignment="Right" Text="تا" VerticalAlignment="Center" />
 
                                     <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
-                                        <persianDateControls:PersianDatePicker  Name="maxdate"  />
+                                        <persianDateControls:PersianDatePicker Foreground="{DynamicResource SystemBaseHighColorBrush}" Name="maxdate"  />
                                         <StackPanel Orientation="Horizontal">
                                             <TextBox x:Name="maxhr"  Text="12" />
-                                            <TextBlock Text=":" />
-                                            <TextBox  x:Name="maxmin" Text="00" />
+                                            <TextBlock Foreground="{DynamicResource SystemBaseHighColorBrush}" Text=":" />
+                                            <TextBox x:Name="maxmin" Text="00" />
                                         </StackPanel>
                                     </StackPanel>
                                 </Grid>
@@ -111,12 +111,12 @@
                                     Background="Transparent" Click="Exportthis_Click"/>
                             <StackPanel HorizontalAlignment="Center" MinWidth="130">
                                 <Grid >
-                                    <TextBlock HorizontalAlignment="Right" Text="از" />
+                                    <TextBlock Foreground="{DynamicResource SystemBaseHighColorBrush}" HorizontalAlignment="Right" Text="از" />
                                     <TextBox x:Name="skip" HorizontalAlignment="Left" Width="50" Text="0" />
                                 </Grid>
 
                                 <Grid >
-                                    <TextBlock HorizontalAlignment="Right" Text="به تعداد" />
+                                    <TextBlock Foreground="{DynamicResource SystemBaseHighColorBrush}" HorizontalAlignment="Right" Text="به تعداد" />
                                     <TextBox x:Name="take" HorizontalAlignment="Left" Width="50" Text="100" />
                                 </Grid>
                             </StackPanel>
@@ -124,6 +124,15 @@
                             Style="{StaticResource ButtonRevealStyle}" Background="Transparent"
                                     Foreground="#F44336"
                                 Click="Resetdb_Click"/>
+                            <Button x:Name="resetLog" HorizontalAlignment="Center" Content="پاک کردن لاگ" Margin="0,2" Width="120" Height="30" 
+                            Style="{StaticResource ButtonRevealStyle}" Background="Transparent"
+                                    Foreground="#F44336"
+                                Click="ResetLog_Click"/>
+                            <Button x:Name="openLog" HorizontalAlignment="Center" Content="باز کردن لاگ" Margin="0,2" Width="120" Height="30" 
+                            Style="{StaticResource ButtonRevealStyle}" Background="Transparent"
+                                    Foreground="{DynamicResource SystemBaseHighColorBrush}"
+                                Click="OpenLog_Click"/>
+                            
                         </StackPanel>
                     </ScrollViewer>
 
