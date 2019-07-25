@@ -17,16 +17,20 @@ namespace NewsDump.Lib.Operations
 
             EventBus.Notify("عملیات با موفقیت به پایان رسید", "DoneOperation");
         }
-        public static void RunParallel()
+        public static void RunParallel(bool silent)
         {
             var services = RegisterServices();
 
             services.AsParallel().ForAll(x => x.RunAndSave());
 
-            EventBus.Notify("عملیات با موفقیت به پایان رسید", "DoneOperation");
+            if (!silent)
+            {
+                EventBus.Notify("عملیات با موفقیت به پایان رسید", "DoneOperation");
+            }
+
         }
         public static async Task RunAsync() => await Task.Run(Run);
-        public static async Task RunParallelAsync() => await Task.Run(RunParallel);
+        public static async Task RunParallelAsync(bool silent) => await Task.Run(() => RunParallel(silent));
         private static List<IDumper> RegisterServices()
         {
             var serviceList = new List<IDumper>();

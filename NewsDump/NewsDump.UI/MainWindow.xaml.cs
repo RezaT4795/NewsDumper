@@ -31,6 +31,9 @@ namespace NewsDump.UI
     /// </summary>
     public partial class MainWindow
     {
+        private System.Windows.Forms.Timer timer1;
+        private int totalSeconds = 10;
+        private bool _isRuning = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -73,8 +76,11 @@ namespace NewsDump.UI
 
         private async void Rundumper_Click(object sender, RoutedEventArgs e)
         {
-            commandbar.IsEnabled = false;
+            rundumper.IsEnabled = false;
+            runTimer.IsEnabled = false;
+            runparadumper.IsEnabled = false;
             prog.IsIndeterminate = true;
+            _isRuning = true;
             try
             {
                 await NewsHandler.RunAsync();
@@ -84,8 +90,10 @@ namespace NewsDump.UI
                 System.Windows.MessageBox.Show("Unhandled exception occurred: \n" + ex, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 EventBus.Log(ex.ToString(), "Error");
             }
-
-            commandbar.IsEnabled = true;
+            _isRuning = false;
+            rundumper.IsEnabled = true;
+            runparadumper.IsEnabled = true;
+            runTimer.IsEnabled = true;
             prog.IsIndeterminate = false;
 
 
@@ -162,22 +170,80 @@ namespace NewsDump.UI
             Conf.Set("Hazf", check.IsChecked.ToString().ToLower());
         }
 
-        private async void Runparadumper_Click(object sender, RoutedEventArgs e)
+        private async void Runparadumper_Click(object sender, RoutedEventArgs e) => await RunDumper();
+
+        async Task RunDumper(bool silent = false)
         {
-            commandbar.IsEnabled = false;
+            rundumper.IsEnabled = false;
+            runTimer.IsEnabled = false;
+            runparadumper.IsEnabled = false;
             prog.IsIndeterminate = true;
+            _isRuning = true;
             try
             {
-                await NewsHandler.RunParallelAsync();
+                await NewsHandler.RunParallelAsync(silent);
             }
             catch (Exception ex)
             {
                 System.Windows.MessageBox.Show("Unhandled exception occurred: \n" + ex, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 EventBus.Log(ex.ToString(), "Error");
             }
-
-            commandbar.IsEnabled = true;
+            _isRuning = false;
+            rundumper.IsEnabled = true;
+            runparadumper.IsEnabled = true;
+            runTimer.IsEnabled = true;
             prog.IsIndeterminate = false;
+        }
+
+        private void RunTimer_Click(object sender, RoutedEventArgs e)
+        {
+            if (timer1 == null)
+            {
+                timer1 = new System.Windows.Forms.Timer();
+                timer1.Tick += async (s, e) =>
+                {
+                    if (!_isRuning)
+                    {
+                        totalSeconds -= 1;
+                        SetTime();
+                        if (totalSeconds == 0)
+                        {
+
+                            await RunDumper(true);
+                            totalSeconds = 10800;
+                        }
+                    }
+
+
+                };
+
+                timer1.Interval = 1000; // in miliseconds
+                timer1.Start();
+            }
+            else
+            {
+                timer1.Stop();
+                timer1 = null;
+                totalSeconds = 10;
+                runTimer.Content = "اجرای زمانبندی";
+            }
+
+        }
+
+        private void SetTime()
+        {
+            if (totalSeconds != 0)
+            {
+                var ts = TimeSpan.FromSeconds(totalSeconds);
+                var txtDate = string.Format("{0}", new DateTime(ts.Ticks).ToString("HH:mm:ss"));
+                runTimer.Content = txtDate;
+            }
+            else
+            {
+                runTimer.Content = "درحال اجرا";
+            }
+
+
         }
     }
 }
