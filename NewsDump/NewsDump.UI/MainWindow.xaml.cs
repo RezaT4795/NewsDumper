@@ -270,6 +270,7 @@ namespace NewsDump.UI
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 EventBus.ClearLog();
+                EventBus.Notify("لاگ پاکسازی شد", "DoneOperation");
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using Olive;
 using System;
 using System.IO;
+using System.Threading;
 
 namespace NewsDump.Lib.Util
 {
@@ -14,6 +15,7 @@ namespace NewsDump.Lib.Util
         {
             OnMessageFired?.Invoke(new MessageArgs { Message = str, Type = type });
         }
+        private static ReaderWriterLockSlim _readWriteLock = new ReaderWriterLockSlim();
 
         public static void Log(string str, string type)
         {
@@ -21,7 +23,7 @@ namespace NewsDump.Lib.Util
 
             try
             {
-                file.AppendAllText(Environment.NewLine + $"--{type}--{DateTime.UtcNow}--" + Environment.NewLine + str);
+                file.WriteToFileThreadSafe(Environment.NewLine + $"--{type}--{DateTime.UtcNow}--" + Environment.NewLine + str);
             }
             catch (Exception)
             {
@@ -30,12 +32,31 @@ namespace NewsDump.Lib.Util
 
 
         }
+        private static void WriteToFileThreadSafe(this FileInfo file, string text)
+        {
+            // Set Status to Locked
+            _readWriteLock.EnterWriteLock();
+            try
+            {
+                // Append text to the file
+                using (StreamWriter sw = File.AppendText(file.FullName))
+                {
+                    sw.WriteLine(text);
+                    sw.Close();
+                }
+            }
+            finally
+            {
+                // Release lock
+                _readWriteLock.ExitWriteLock();
+            }
+        }
         public static void TouchLogFile()
         {
             var file = GetLoggingPath();
             if (!File.Exists(file))
             {
-                file.AsFile().AppendAllText("");
+                file.AsFile().WriteToFileThreadSafe("");
             }
         }
         public static void ClearLog()
