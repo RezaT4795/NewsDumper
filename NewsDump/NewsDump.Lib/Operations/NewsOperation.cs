@@ -24,7 +24,7 @@ namespace NewsDump.Lib.Operations
             var conf = Conf.Get<bool>("Hazf");
             if (conf)
             {
-                var all = _repo.FindAll(x=>x.PublishDate>news.PublishDate.AddHours(-10) );
+                var all = _repo.FindAll(x=>x.PublishDate>news.PublishDate.AddHours(-8) );
                 if (all.AsParallel().None(x => StringCompare.IsPotentiallySimilar(x, news)))
                 {
                     _repo.Add(news);
