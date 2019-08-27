@@ -34,6 +34,7 @@ namespace NewsDump.Lib.Operations
         }
         static void WriteToExcel(IEnumerable<News> customerObjects, string path)
         {
+            customerObjects = customerObjects.OrderByDescending(x => x.PublishDate);
             if (customerObjects.Any())
             {
                 var expath = Path.Combine(path.AsDirectory().FullName, $"{DateTime.UtcNow.Ticks}.xlsx");

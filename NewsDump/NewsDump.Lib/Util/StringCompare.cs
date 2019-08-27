@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NewsDump.Lib.Model;
 using Olive;
 
 namespace NewsDump.Lib.Util
 {
     public static class StringCompare
     {
-        public static bool IsPotentiallySimilar(this string first, string second)
+        public static bool IsPotentiallySimilar(this News first, News second)
         {
-            var percentage = GetPercentageOfSimilarity(first, second);
-            var isSimilar = percentage > 80;
+            var percentage = GetPercentageOfSimilarity(first.NewsBody, second.NewsBody);
+            var isSimilar = percentage > 90;
             if (isSimilar)
             {
-                EventBus.Notify($"Similarity {percentage}%", "info");
+                EventBus.Notify($"Similarity {percentage}% {first.NewsTitle} is like {second.NewsTitle}", "info");
             }
             return isSimilar;
         }
