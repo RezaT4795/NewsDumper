@@ -89,7 +89,7 @@ namespace NewsDump.Lib.Operations.Sites
                 catch (Exception ex)
                 {
 
-                    EventBus.Notify("Retrying...", "Info");
+                    EventBus.Notify("Retrying, IRIB...", "Info");
                     EventBus.Log(ex.Message, "retrying in IRIB");
                 }
 
