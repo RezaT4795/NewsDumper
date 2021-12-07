@@ -38,7 +38,8 @@ namespace NewsDump.Lib.Operations
             if (customerObjects.Any())
             {
                 var expath = Path.Combine(path.AsDirectory().FullName, $"{DateTime.UtcNow.Ticks}.xlsx");
-
+                
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
                 var pck = new ExcelPackage();
                 var wsEnum = pck.Workbook.Worksheets.Add("News sheet");
                 wsEnum.DefaultColWidth = 18;
